@@ -1,3 +1,7 @@
+function validateEmail(email) {
+    const re = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+    return re.test(email);
+  }
 
 const dname = document.getElementById('displayname');
 const demail = document.getElementById('displayemail');
@@ -17,6 +21,15 @@ btn.onclick = () => {
     var interest={ };
     var genderArray = document.getElementsByName('g');
     var gender = '';
+
+    
+      
+     
+      const isValid = validateEmail(email);
+      
+      if (isValid) {
+       
+      
      
     for (let index = 0; index < genderArray.length; index++) {
         if (genderArray[index].checked == true) {
@@ -43,5 +56,11 @@ btn.onclick = () => {
     dgender.innerText = gender;
   dint.innerText=modifav;
 
+
+}
+
+else{
+    window.alert('Invalid Email Address !!')
+}
 
 }
