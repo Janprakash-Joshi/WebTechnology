@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bill</title>
+</head>
+<body>
+    <div>
+        Bill Amount:<input type="number" placeholder="$" min="0" id="billAmount" >
+        Tip: <input type="number" placeholder="$" min="0" id="tipAmount" >
+        People: <span id="plus">+ </span><span id="numPeople">1</span><span id="minus"> -  </span><br><br>
+        Total Bill: $ <span id="totalbill">0</span>
+
+       
+    </div>
+
+<script>
+    
+let totalBillAmount;
+let numberOfPeople=1;
+let increase=document.getElementById('plus');
+let decrease=document.getElementById('minus');
+let numPeople=document.getElementById('numPeople');
+let totalBill=document.getElementById('totalbill');
+
+
+let  billAmount;
+let  tipAmount;
+document.getElementById('billAmount').addEventListener('change',go);
+document.getElementById('tipAmount').addEventListener('change',go);
+function go(){
+    billAmount= document.getElementById('billAmount').value;
+    tipAmount=document.getElementById('tipAmount').value;
+    if(tipAmount<1){
+        tipAmount=0;
+    }
+    tipAmount=parseFloat(tipAmount);
+    billAmount=parseFloat(billAmount);
+    totalBillAmount=parseFloat(totalBillAmount);
+    totalBillAmount= tipAmount+billAmount;
+    totalBill.innerText=totalBillAmount/numberOfPeople;
+}
+
+
+increase.onclick=()=>{
+    numberOfPeople++;
+    numPeople.innerText=numberOfPeople;
+    totalBill.innerText=totalBillAmount/numberOfPeople;
+
+}
+decrease.onclick=()=>{
+    if(numberOfPeople>1){
+        numberOfPeople--;
+    }
+    numPeople.innerText=numberOfPeople;
+   totalBill.innerText=totalBillAmount/numberOfPeople;
+   
+
+   
+}
+
+</script>
+
+</body>
+</html>
