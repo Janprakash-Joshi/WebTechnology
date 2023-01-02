@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+           <td>Form</td>
+           <td>data</td> 
+        </tr>
+        <tr>
+            <tr>
+                <td>
+                    Name: <input type="text"  id="inputname" required>
+                </td>
+                <td>
+                    Name: <span id="displayname"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email: <input type="email" required id="inputemail">
+                </td>
+                <td>
+                    Email: <span id="displayemail"></span>
+                </td>
+            </tr>
+            <tr>
+
+            
+            <td> 
+                About: <textarea name="" id="inputabt" cols="" rows="5"></textarea>
+            </td>
+            <td>
+                About: <span id="displayabt"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                semester: <select name="" id="inputsem">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+            </td>
+            <td>
+                semester: <span id="displaysem"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Gender: Male<input type="radio" name="g" value="male" id="male" > Female<input type="radio"name="g" value="female" id="female"> Other<input type="radio" name="g" value="other" id="other">
+            </td>
+            <td>
+                Gender: <span id="gender"></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Interest: Movie<input type="checkbox" value="movie" name="i"> Music<input type="checkbox" value="music" name="i">Game<input type="checkbox" value="game" name="i">
+            </td>
+            <td>
+                Interest: <span id="displayint"></span>
+            </td>
+        </tr>
+            <tr>
+                <td>
+                    <button id="submit">Submit</button>
+                </td>
+            </tr>  
+        </tr>
+
+    
+    </table>
+
+
+    <script src="/js.js"></script>
+</body>
+</html>
