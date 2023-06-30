@@ -1,101 +1,163 @@
+<?php
+require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+
+// login form 
+
+
+if (isset($_POST['checkbox'])) {
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+
+  $sql = "SELECT * FROM meropizza.admin WHERE email = ? AND password = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("ss", $email, $password);
+  $stmt->execute();
+  $result = $stmt->get_result();
+
+  if ($result->num_rows === 1) {
+    header('Location:/MeroPizza/pages/admin.php?login_success=1');
+     
+    //   echo "<script>window.location.href = '/MeroPizza/index.php';</script>";
+
+    exit();
+  } else {
+
+
+    echo "<script>alert('Invalid email or password.');</script>";
+  }
+
+} else {
+  if (isset($_POST['loginBtn'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM meropizza.users WHERE email = ? AND password = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $email, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+      header('Location:/MeroPizza/index.php?login_success=1');
+
+      //   echo "<script>window.location.href = '/MeroPizza/index.php';</script>";
+
+      exit();
+    } else {
+
+
+      echo "<script>alert('Invalid email or password.');</script>";
+    }
+  }
+}
+ ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/MeroPizza/style/main.css">
-    <link rel="stylesheet" href="/MeroPizza/style/login.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/MeroPizza/style/main.css">
+  <link rel="stylesheet" href="/MeroPizza/style/login.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-    <div class="icon">
-        <div id="show"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                class="bi bi-list" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-            </svg></div>
-        <div id="hide"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path
-                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-            </svg></div>
+  <!-- Header -->
+  <div class="icon">
+    <div id="show"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-list"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+      </svg></div>
+    <div id="hide"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-lg"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+      </svg></div>
+  </div>
+  <div class="head" id="head">
+    <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
+    <div class="menu">
+      <ul>
+        <li><a href="/MeroPizza/index.php">Home</a></li>
+      </ul>
+      <ul>
+        <li><a href="about.php">About Us</a></li>
+      </ul>
+      <ul>
+        <li><a href="order.php">Order</a></li>
+      </ul>
+      <ul>
+        <li><a href="login.php">Log In</a></li>
+      </ul>
+
     </div>
-    <div class="head" id="head">
-        <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
-        <div class="menu">
-            <ul>
-                <li><a href="/MeroPizza/index.php">Home</a></li>
-            </ul>
-            <ul>
-                <li><a href="about.php">About Us</a></li>
-            </ul>
-            <ul>
-                <li><a href="order.php">Order</a></li>
-            </ul>
-            <ul>
-                <li><a href="login.php">Log In</a></li>
-            </ul>
-
-        </div>
-        <div class="cart">
-            <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                    class="bi bi-cart3" viewBox="0 0 16 16">
-                    <path
-                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg></a>
-        </div>
+    <div class="cart">
+      <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+          class="bi bi-cart3" viewBox="0 0 16 16">
+          <path
+            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg></a>
     </div>
-    <!-- Header -->
+  </div>
+  <!-- Header -->
 
 
 
 
 
-<!-- login banner -->
-<div class="loginBanner">
-  <h1><center>Login  /  Register</center></h1>
-</div>
+  <!-- login banner -->
+  <div class="loginBanner">
+    <h1>
+      <center>Login / Register</center>
+    </h1>
+  </div>
 
-<div class="loginRegister">
- 
-<div class="loginForm">
-  <h1>Login</h1>
-  <form action="">
-  <label for="admin" class="revert">I am Admin</label>
-   <input type="checkbox" class="revert"><br><br>
-    <label for="email" >Email:</label><br>
-   <input type="email" placeholder="Your email address" id="formEmail"><br>
-   <label for="password">Password:</label><br>
-   <input type="password" placeholder="Your password" id="loginPsw"><br>
-   
-   <a href="">Forget Password ?</a><br>
-   <button class="loginBtn" id="formBtn">Log In</button>
-  </form>
-</div>
+  <div class="loginRegister">
 
-<div class="registerForm">
-  <h1>Create New Accout</h1>
-  <form action="#" method="post">
-  <label for="name">Full Name:</label><br>
-   <input type="text" placeholder="Your full name" id="regName"><br>
-    <label for="email" >Email:</label><br>
-   <input type="email" placeholder="Your email address" id="formEmail2"><br>
-   <label for="email">Phone:</label><br>
-   <input type="text" placeholder="Your phone number" id="regPhone"><br>
-   <label for="password">New Password:</label><br>
-   <input type="password" placeholder="Your password" id="regPsw"><br>
-  
-   <button class="loginBtn" id="formBtn2">Register</button>
-  </form>
-</div>
- 
-</div>
+    <div class="loginForm">
+      <h1>Login</h1>
+      <form action="login.php" method="POST">
+        <label for="admin" class="revert">I am Admin</label>
+        <input type="checkbox" class="revert" name="checkbox"><br><br>
+        <label for="email">Email:</label><br>
+        <input type="email" placeholder="Your email address" id="formEmail" name="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" placeholder="Your password" id="loginPsw" name="password"><span onclick="showhide()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+</svg></span><br><br>
+
+        <a href="">Forget Password ?</a><br>
+        <button class="loginBtn" id="formBtn" name="loginBtn">Log In</button>
+      </form>
+    </div>
+
+    <div class="registerForm">
+      <h1>Create New Accout</h1>
+      <form action="#" method="post">
+        <label for="name">Full Name:</label><br>
+        <input type="text" placeholder="Your full name" id="regName" name="name"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" placeholder="Your email address" id="formEmail2" name="email2"><br>
+        <label for="email">Phone:</label><br>
+        <input type="text" placeholder="Your phone number" id="regPhone" name="phone"><br>
+        <label for="password">New Password:</label><br>
+        <input type="password" placeholder="Your password" id="regPsw" name="password2"><span  onclick="showhide()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+</svg></span><br>
+
+        <button class="loginBtn" id="formBtn2" name="formBtn2">Register</button>
+      </form>
+    </div>
+
+  </div>
 
 
 
@@ -103,7 +165,7 @@
 
 
 
-    <!-- footer -->
+  <!-- footer -->
   <footer>
     <div class="footer1">
       <div>
@@ -148,7 +210,7 @@
         <p>Subscribe to the our newsletter to
           get regular update about offers</p>
         <div>
-        <input type="email" placeholder="Enter Your Email" id="newsLetterEmail">
+          <input type="email" placeholder="Enter Your Email" id="newsLetterEmail">
           <div class="button" id="newsLetterBtn">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-send-fill"
               viewBox="0 0 16 16">
@@ -200,8 +262,41 @@
   </footer>
   <!-- footer -->
 
-    <script src="/MeroPizza/js/navbar.js"></script>
-    <script src="/MeroPizza/js/formValid.js"></script>
+  <script src="/MeroPizza/js/navbar.js"></script>
+  <script src="/MeroPizza/js/formValid.js"></script>
+  <script src="/MeroPizza/js/login.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
 </body>
 
 </html>
+
+
+<?php
+
+//  registration form 
+if (isset($_POST['formBtn2'])) {
+  $name = $_POST['name'];
+  $email = $_POST['email2'];
+  $phone = $_POST['phone'];
+  $password = $_POST['password2'];
+
+
+  $sql = "INSERT INTO meropizza.users (name, email, phone, password) VALUES (?, ?, ?, ?)";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("ssss", $name, $email, $phone, $password);
+  $stmt->execute();
+
+  if ($stmt->affected_rows === 1) {
+    echo "<script>Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Registered Successfully',
+      showConfirmButton: true,
+      timer: 9500
+    });</script>";}
+     else {
+
+    echo "<script>alert('Registration failed!');</script>";
+  }
+}
+$conn->close();?>

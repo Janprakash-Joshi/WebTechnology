@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mero Pizza</title>
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
   <link rel="stylesheet" href="style/main.css">
 
 </head>
@@ -118,7 +121,7 @@
         <div class="pizzades">
           <h1>Pan Pizza (Veg)</h1>
           <p class="price">RS. 500</p>
-          <button class="addtocart">Add To Cart</button>
+          <button class="addtocart"><a href="/MeroPizza/pages/cart.php">Order Now</a></button>
         </div>
       </div>
       <div class="card">
@@ -128,7 +131,7 @@
         <div class="pizzades">
           <h1>Pan Pizza (Non-Veg)</h1>
           <p class="price">RS. 700</p>
-          <button class="addtocart">Add To Cart</button>
+          <button class="addtocart"><a href="/MeroPizza/pages/cart.php">Order Now</a></button>
         </div>
       </div>
       <div class="card">
@@ -138,7 +141,7 @@
         <div class="pizzades">
           <h1>Cheesy Max Pizza (Veg)</h1>
           <p class="price">RS. 600</p>
-          <button class="addtocart">Add To Cart</button>
+          <button class="addtocart"><a href="/MeroPizza/pages/cart.php">Order Now</a></button>
         </div>
       </div>
       <div class="card">
@@ -148,7 +151,7 @@
         <div class="pizzades">
           <h1>Cheesy Max Pizza (Non-Veg)</h1>
           <p class="price">RS. 1000</p>
-          <button class="addtocart">Add To Cart</button>
+          <button class="addtocart"><a href="/MeroPizza/pages/cart.php">Order Now</a></button>
         </div>
       </div>
     </div>
@@ -196,7 +199,7 @@
 
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47203.79498731991!2d85.31305613595265!3d27.659610589161545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19e8af4a5fe3%3A0x963d00cdf478c6b6!2sNepal%20College%20of%20Information%20Technology!5e0!3m2!1sen!2snp!4v1687881989153!5m2!1sen!2snp"
-      width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
   <!-- location -->
@@ -299,6 +302,29 @@
   <!-- footer -->
   <script src="js/main.js"></script>
   <script src="js/navbar.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+
 </body>
 
 </html>
+<?php
+require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+
+if (isset($_GET['login_success']) && $_GET['login_success'] === '1') {
+  echo "<script>Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Log In Successfully',
+    showConfirmButton: false,
+    timer: 2500
+  });</script>";}
+  
+if (isset($_GET['logout_success']) && $_GET['logout_success'] === '1') {
+  echo "<script>Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Log Out Successfully',
+    showConfirmButton: false,
+    timer: 2500
+  });</script>";}
+?>

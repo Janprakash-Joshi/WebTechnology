@@ -88,3 +88,8 @@ input:focus{
 .revert{
     all:revert;
 }
+
+form span{
+    margin-left: -2rem;
+    cursor: pointer;
+}

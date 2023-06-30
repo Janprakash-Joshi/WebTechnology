@@ -1,3 +1,6 @@
+<?php
+require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+?>
 <!DOCTYPE html>
 <html>
 

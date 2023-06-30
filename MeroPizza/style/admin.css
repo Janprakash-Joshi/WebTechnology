@@ -1,0 +1,22 @@
+.welcome{
+    padding-top: 5vw;
+}
+footer{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+}
+.head{
+    display: block;
+    width: auto;
+}
+button{
+    cursor: pointer;
+    padding: 5px;
+}
+.welcome h1{
+    font-size: 3rem;
+    font-weight: bold;
+    color: yellow;
+}

@@ -1,5 +1,10 @@
 <?php
 require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+
+
+    if (isset($_POST['adminLogOut'])) {
+        header('Location:/MeroPizza/index.php?logout_success=1');
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,154 +15,36 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/MeroPizza/style/main.css">
-    <link rel="stylesheet" href="/MeroPizza/style/order.css">
+    <link rel="stylesheet" href="/MeroPizza/style/admin.css">
 </head>
 
 <body>
 
     <!-- Header -->
-    <div class="icon">
-        <div id="show"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                class="bi bi-list" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-            </svg></div>
-        <div id="hide"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path
-                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-            </svg></div>
-    </div>
+   
     <div class="head" id="head">
         <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
-        <div class="menu">
-            <ul>
-                <li><a href="/MeroPizza/index.php">Home</a></li>
-            </ul>
-            <ul>
-                <li><a href="about.php">About Us</a></li>
-            </ul>
-            <ul>
-                <li><a href="order.php">Order</a></li>
-            </ul>
-            <ul>
-                <li><a href="login.php">Log In</a></li>
-            </ul>
-
-        </div>
-        <div class="cart">
-            <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                    class="bi bi-cart3" viewBox="0 0 16 16">
-                    <path
-                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg></a>
-        </div>
+       
+           
     </div>
     <!-- Header -->
 
 
 
-
-
-<!-- order -->
-
-<div class="order">
-  <h1><center>My Order</center></h1>
+    <div class="welcome">
+<h1><center>Welcome to admin dashboard</center></h1>
 </div>
-<!-- order -->
-
-
-
-<!-- order detail -->
-<div class="detail">
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Status</th>
-    </tr>
-    <tr>
-      <td>
-        <h3>no order right now</h3>
-      </td>
-
-      <td>
-        <h3>unavulable</h3>
-        <h3>unavulable</h3>
-      </td>
-      
-    </tr>
-    
-  </table>
-</div>
-
-<!-- order detail -->
-
-
-
-
-
-
+ 
+<form action="admin.php" method="POST">
+<center><button name="adminLogOut">Log Out</button></center>
+</form>
+ 
 
 
     <!-- footer -->
   <footer>
-    <div class="footer1">
-      <div>
-        <div class="title">
-          <h1>Quick Links </h1>
-        </div>
-        <div>
-          <ul>
-            <li><a href="about.php">About Us</a></li>
-          </ul>
-          <ul>
-            <li><a href="#">Feq</a></li>
-          </ul>
-          <ul>
-            <li><a href="#">Contacts</a></li>
-          </ul>
-          <ul>
-            <li><a href="login.php">Log In</a></li>
-          </ul>
-          <ul>
-            <li><a href="login.php">Register</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div>
-        <div class="title">
-          <h1>Our Location </h1>
-        </div>
-        <div>
-          <p>Balkumari,Lalitpur</p>
-          <p>Mon - Fri: 08:00 am - 10:00 pm</p>
-          <p>Sat - Sun: 10:00 am - 11:00 pm</p>
-          <a href="telto:091692861">091692861</a>
-        </div>
-      </div>
-
-      <div>
-        <div class="title">
-          <h1>Subscribe Us</h1>
-        </div>
-        <p>Subscribe to the our newsletter to
-          get regular update about offers</p>
-        <div>
-        <input type="email" placeholder="Enter Your Email" id="newsLetterEmail">
-          <div class="button" id="newsLetterBtn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-send-fill"
-              viewBox="0 0 16 16">
-              <path
-                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
-            </svg>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
     <div class="footer2">
       <div class="payment">
         <h3>Payment Opations</h3>
@@ -198,6 +85,18 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
   <!-- footer -->
 
     <script src="/MeroPizza/js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+
 </body>
 
 </html>
+
+<?php
+if (isset($_GET['login_success']) && $_GET['login_success'] === '1') {
+    echo "<script>Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Log In Successfully',
+        showConfirmButton: false,
+        timer: 2500
+      });</script>";}?>
