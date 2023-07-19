@@ -4,6 +4,9 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
 if (isset($_POST['logout'])) {
   header('Location:/MeroPizza/pages/login.php');
 }
+if (isset($_POST['profile'])) {
+  header('Location:/MeroPizza/pages/user.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

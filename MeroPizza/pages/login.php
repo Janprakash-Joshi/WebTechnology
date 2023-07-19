@@ -51,8 +51,8 @@ if (isset($_POST['checkbox'])) {
 
       $_SESSION['username'] = $row['name'];
       $_SESSION['email'] = $row['email'];
-      $_SESSION['address'] = $row['email'];
-      $_SESSION['phone'] = $row['email'];
+      $_SESSION['address'] = $row['address'];
+      $_SESSION['phone'] = $row['phone'];
       $_SESSION['user_id']=$row['id'];
 
 

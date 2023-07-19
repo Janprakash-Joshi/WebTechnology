@@ -4,7 +4,9 @@ session_start();
 if (isset($_POST['logout'])) {
   header('Location:/MeroPizza/pages/login.php');
 }
-
+if (isset($_POST['profile'])) {
+  header('Location:/MeroPizza/pages/user.php');
+}
 $query = "SELECT * FROM meropizza.items";
 $result = $conn->query($query);
 
@@ -16,9 +18,7 @@ while ($row = $result->fetch_assoc()) {
 $jsonData = json_encode($data);
 
 ?>
-<script>
-  const items = <?php echo $jsonData; ?>;
-</script>
+
 <!DOCTYPE html>
 <html>
 
@@ -100,7 +100,9 @@ $jsonData = json_encode($data);
   </div>
   <div id="cart-items">
     <!-- Cart items will be dynamically added here -->
-
+    <script>
+      const items = <?php echo $jsonData; ?>;
+    </script>
   </div>
   <center>
     <h1><b>Total Amount: </b><span id="totalAmount">0</span></h1>
@@ -219,7 +221,7 @@ $jsonData = json_encode($data);
   <!-- footer -->
   <script src="/MeroPizza/js/cart.js"></script>
   <script src="/MeroPizza/js/navbar.js"></script>
-  
+
 
 
 </body>

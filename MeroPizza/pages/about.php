@@ -1,53 +1,57 @@
 <?php
 require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
 session_start();
-if(isset($_POST['logout'])){
-  header('Location:/MeroPizza/pages/login.php');}
+if (isset($_POST['logout'])) {
+  header('Location:/MeroPizza/pages/login.php');
+}
+if (isset($_POST['profile'])) {
+  header('Location:/MeroPizza/pages/user.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/MeroPizza/style/main.css">
-    <link rel="stylesheet" href="/MeroPizza/style/about.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/MeroPizza/style/main.css">
+  <link rel="stylesheet" href="/MeroPizza/style/about.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-    <div class="icon">
-        <div id="show"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                class="bi bi-list" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-            </svg></div>
-        <div id="hide"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path
-                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-            </svg></div>
-    </div>
-    <div class="head" id="head">
-        <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
-        <div class="menu">
-            <ul>
-                <li><a href="/MeroPizza/index.php">Home</a></li>
-            </ul>
-            <ul>
-                <li><a href="#">About Us</a></li>
-            </ul>
-            <ul>
-                <li><a href="order.php">Order</a></li>
-            </ul>
-            <ul id='login'>
-       
+  <!-- Header -->
+  <div class="icon">
+    <div id="show"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-list"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+      </svg></div>
+    <div id="hide"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-lg"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+      </svg></div>
+  </div>
+  <div class="head" id="head">
+    <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
+    <div class="menu">
+      <ul>
+        <li><a href="/MeroPizza/index.php">Home</a></li>
+      </ul>
+      <ul>
+        <li><a href="#">About Us</a></li>
+      </ul>
+      <ul>
+        <li><a href="order.php">Order</a></li>
+      </ul>
+      <ul id='login'>
+
         <?php
-        
+
         if (isset($_SESSION['user_id'])) {
           // User is logged in
           echo '<li><a href="user.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt=""><span>' . $_SESSION['username'] . '</span></a></li>';
@@ -65,33 +69,39 @@ if(isset($_POST['logout'])){
         ?>
       </ul>
 
-        </div>
-        <div class="cart">
-            <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                    class="bi bi-cart3" viewBox="0 0 16 16">
-                    <path
-                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg></a>
-        </div>
     </div>
-    <!-- Header -->
+    <div class="cart">
+      <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+          class="bi bi-cart3" viewBox="0 0 16 16">
+          <path
+            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg></a>
+    </div>
+  </div>
+  <!-- Header -->
 
 
-<!-- About Us -->
-<div class="about">
-  <h1><center>About Us</center></h1>
-</div>
-<!-- About Us -->
+  <!-- About Us -->
+  <div class="about">
+    <h1>
+      <center>About Us</center>
+    </h1>
+  </div>
+  <!-- About Us -->
 
 
-<div class="history">
-  <h1>Our History</h1>
-   <div>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti iure error sint voluptate molestiae voluptatibus totam quia ipsum neque magni.
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, inventore?</p>
-    </p>
-   </div>
-</div>
+  <div class="history">
+    <h1>Welcome to Our Online Pizza Delivery System!</h1>
+    <div>
+      <p>
+        At Mero Pizza, we are passionate about two things: exceptional pizzas and delivering an
+        unforgettable dining experience to your doorstep. Since our humble beginnings, we have been on a mission to
+        redefine the way you enjoy pizza, making it more convenient, delicious, and enjoyable than ever before.
+
+      </p>
+
+    </div>
+  </div>
 
 
 
@@ -100,18 +110,18 @@ if(isset($_POST['logout'])){
 
 
 
- <!-- location -->
- <div class="map">
+  <!-- location -->
+  <div class="map">
 
-<iframe
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47203.79498731991!2d85.31305613595265!3d27.659610589161545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19e8af4a5fe3%3A0x963d00cdf478c6b6!2sNepal%20College%20of%20Information%20Technology!5e0!3m2!1sen!2snp!4v1687881989153!5m2!1sen!2snp"
-  width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-  referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
-<!-- location -->
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47203.79498731991!2d85.31305613595265!3d27.659610589161545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19e8af4a5fe3%3A0x963d00cdf478c6b6!2sNepal%20College%20of%20Information%20Technology!5e0!3m2!1sen!2snp!4v1687881989153!5m2!1sen!2snp"
+      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <!-- location -->
 
 
-    <!-- footer -->
+  <!-- footer -->
   <footer>
     <div class="footer1">
       <div>
@@ -129,18 +139,18 @@ if(isset($_POST['logout'])){
             <li><a href="#">Contacts</a></li>
           </ul>
           <ul>
-          <?php
+            <?php
             if (isset($_SESSION['user_id'])) {
               // User is logged in
               echo '<li><a href="/MeroPizza/pages/login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="" width="30px">Log Out</a></li>';
-        
+
             } else {
               // User is not logged in
               echo '<li><a href="/MeroPizza/pages/login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="" width="30px">Log In</a></li>';
             }
             ?>
           </ul>
-         
+
         </div>
       </div>
 
@@ -163,7 +173,7 @@ if(isset($_POST['logout'])){
         <p>Subscribe to the our newsletter to
           get regular update about offers</p>
         <div>
-        <input type="email" placeholder="Enter Your Email" id="newsLetterEmail">
+          <input type="email" placeholder="Enter Your Email" id="newsLetterEmail">
           <div class="button" id="newsLetterBtn">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-send-fill"
               viewBox="0 0 16 16">
@@ -215,7 +225,7 @@ if(isset($_POST['logout'])){
   </footer>
   <!-- footer -->
 
-    <script src="/MeroPizza/js/navbar.js"></script>
+  <script src="/MeroPizza/js/navbar.js"></script>
 </body>
 
 </html>
