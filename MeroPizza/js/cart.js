@@ -1,9 +1,3 @@
-const items = [
-    { id: 1, name: "pan pizza (veg)", price: 500, img:"/MeroPizza/img/pan veg.jpg" },
-    { id: 2, name: "pan pizza (non-veg)", price: 700  ,img:"/MeroPizza/img/pan nonveg.jpg"},
-    { id: 3, name: "cheesy Max Pizza (veg)", price: 600 ,img:"/MeroPizza/img/cheese veg.jpg"},
-    { id: 3, name: "cheesy Max Pizza (non-veg)", price: 1000 ,img:"/MeroPizza/img/cheese nonveg.jpg"}
-  ];
 
   // Cart data
   const cart = [];

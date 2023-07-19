@@ -1,5 +1,8 @@
 <?php
 require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+session_start();
+if(isset($_POST['logout'])){
+  header('Location:/MeroPizza/pages/login.php');}
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,9 +44,26 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
             <ul>
                 <li><a href="order.php">Order</a></li>
             </ul>
-            <ul>
-                <li><a href="login.php">Log In</a></li>
-            </ul>
+            <ul id='login'>
+       
+       <?php
+       
+       if (isset($_SESSION['user_id'])) {
+         // User is logged in
+         echo '<li><a href="user.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt=""><span>' . $_SESSION['username'] . '</span></a></li>';
+         echo '
+           
+          <form action="order.php" method="POST">
+          <button name="profile">Profile</button>
+            <button name="logout">Log Out</button>
+          </form>
+          ';
+       } else {
+         // User is not logged in
+         echo '<li><a href="login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="">Log In</a></li>';
+       }
+       ?>
+     </ul>
 
         </div>
         <div class="cart">
@@ -82,8 +102,8 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
       </td>
 
       <td>
-        <h3>unavulable</h3>
-        <h3>unavulable</h3>
+        <h3>unavailable</h3>
+        <h3>unavailable</h3>
       </td>
       
     </tr>
@@ -118,11 +138,18 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
             <li><a href="#">Contacts</a></li>
           </ul>
           <ul>
-            <li><a href="login.php">Log In</a></li>
+          <?php
+            if (isset($_SESSION['user_id'])) {
+              // User is logged in
+              echo '<li><a href="/MeroPizza/pages/login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="" width="30px">Log Out</a></li>';
+        
+            } else {
+              // User is not logged in
+              echo '<li><a href="/MeroPizza/pages/login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="" width="30px">Log In</a></li>';
+            }
+            ?>
           </ul>
-          <ul>
-            <li><a href="login.php">Register</a></li>
-          </ul>
+          
         </div>
       </div>
 

@@ -79,8 +79,11 @@ a {
 .cart {
     display: flex;
     align-items: center;
-    margin-right: 10vw;
+    margin-right: 5vw;
 
+}
+.cart a::after{
+    content: 'Shop Now';
 }
 
 .border {
@@ -218,10 +221,7 @@ a:hover {
     margin-top: 1.5rem;
     justify-content: space-evenly;
 }
-.price{
-    font-size: 2rem;
-    color: #45a049;
-}
+
 .addtocart{
     margin: 1rem;
     font-size: 1rem;
@@ -392,6 +392,10 @@ a:hover {
         flex-direction: column;
 
     }
+    #login{
+        flex-direction: column;
+        height: fit-content !important;
+    }
 }
 @media  (max-width:600px){
     .footer1 p {
@@ -428,4 +432,37 @@ a:hover {
     border: 3px solid red;
     
 
+}
+.price{
+    color: green;
+}
+#login{
+    display: flex;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 50px;
+    height: 5vw;
+
+}
+#login a{
+    display: flex;
+    color: yellowgreen;
+}
+#login img{
+width: 50px;
+border-radius: 50%;
+filter: invert();
+}
+#login form button{
+    padding: 5px;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0);
+    color: white;
+    font-size: 15px;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+#login form button:hover{
+    color: yellow;
+    background-color: #111111;
 }

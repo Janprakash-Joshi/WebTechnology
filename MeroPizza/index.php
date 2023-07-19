@@ -1,5 +1,10 @@
-
-
+<?php
+session_start();
+require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+if (isset($_POST['logout'])) {
+  header('Location:/MeroPizza/pages/login.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +31,7 @@
           d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
       </svg></div>
   </div>
+
   <div class="head" id="head">
     <div class="logo"><img src="img/logo.png" alt=""></div>
     <div class="menu">
@@ -38,19 +44,38 @@
       <ul>
         <li><a href="pages/order.php">Order</a></li>
       </ul>
-      <ul>
-        <li><a href="pages/login.php">Log In</a></li>
+      <ul id='login'>
+
+        <?php
+
+        if (isset($_SESSION['user_id'])) {
+          // User is logged in
+          echo '<li><a href="pages/user.php"><img src="img/User-avatar.svg.png" alt=""><span>' . $_SESSION['username'] . '</span></a></li>';
+          echo '
+           
+          <form action="index.php" method="POST">
+          <button name="profile">Profile</button>
+            <button name="logout">Log Out</button>
+          </form>
+          ';
+        } else {
+          // User is not logged in
+          echo '<li><a href="pages/login.php"><img src="img/User-avatar.svg.png" alt="">Log In</a></li>';
+        }
+        ?>
+
       </ul>
 
     </div>
     <div class="cart">
-      <a href="pages/cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-cart3"
-          viewBox="0 0 16 16">
+      <a href="pages/cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+          class="bi bi-cart3" viewBox="0 0 16 16">
           <path
             d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
         </svg></a>
     </div>
   </div>
+
   <!-- Header -->
 
   <!-- banner video -->
@@ -73,7 +98,7 @@
       <img src="img/pizza.png" alt="">
     </div>
     <div class="buy-now-button">
-      <a href="#popularfood">Buy Now</a>
+      <a href="pages/cart.php">Buy Now</a>
     </div>
   </div>
   <!-- banner-text -->
@@ -120,7 +145,7 @@
         </div>
         <div class="pizzades">
           <h1>Pan Pizza (Veg)</h1>
-          <p class="price">RS. 500</p>
+
           <button class="addtocart"><a href="/MeroPizza/pages/cart.php">Order Now</a></button>
         </div>
       </div>
@@ -130,7 +155,7 @@
         </div>
         <div class="pizzades">
           <h1>Pan Pizza (Non-Veg)</h1>
-          <p class="price">RS. 700</p>
+
           <button class="addtocart"><a href="/MeroPizza/pages/cart.php">Order Now</a></button>
         </div>
       </div>
@@ -140,7 +165,7 @@
         </div>
         <div class="pizzades">
           <h1>Cheesy Max Pizza (Veg)</h1>
-          <p class="price">RS. 600</p>
+
           <button class="addtocart"><a href="/MeroPizza/pages/cart.php">Order Now</a></button>
         </div>
       </div>
@@ -150,10 +175,12 @@
         </div>
         <div class="pizzades">
           <h1>Cheesy Max Pizza (Non-Veg)</h1>
-          <p class="price">RS. 1000</p>
+
           <button class="addtocart"><a href="/MeroPizza/pages/cart.php">Order Now</a></button>
         </div>
       </div>
+
+
     </div>
   </div>
   <!-- Popular Our Food -->
@@ -222,11 +249,18 @@
             <li><a href="#">Contacts</a></li>
           </ul>
           <ul>
-            <li><a href="pages/login.php">Log In</a></li>
+            <?php
+            if (isset($_SESSION['user_id'])) {
+              // User is logged in
+              echo '<li><a href="pages/login.php"><img src="img/User-avatar.svg.png" alt="" width="30px">Log Out</a></li>';
+        
+            } else {
+              // User is not logged in
+              echo '<li><a href="pages/login.php"><img src="img/User-avatar.svg.png" alt="" width="30px">Log In</a></li>';
+            }
+            ?>
           </ul>
-          <ul>
-            <li><a href="pages/login.php">Register</a></li>
-          </ul>
+
         </div>
       </div>
 
@@ -308,7 +342,7 @@
 
 </html>
 <?php
-require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+
 
 if (isset($_GET['login_success']) && $_GET['login_success'] === '1') {
   echo "<script>Swal.fire({
@@ -317,8 +351,9 @@ if (isset($_GET['login_success']) && $_GET['login_success'] === '1') {
     title: 'Log In Successfully',
     showConfirmButton: false,
     timer: 2500
-  });</script>";}
-  
+  });</script>";
+}
+
 if (isset($_GET['logout_success']) && $_GET['logout_success'] === '1') {
   echo "<script>Swal.fire({
     position: 'center',
@@ -326,5 +361,13 @@ if (isset($_GET['logout_success']) && $_GET['logout_success'] === '1') {
     title: 'Log Out Successfully',
     showConfirmButton: false,
     timer: 2500
-  });</script>";}
+  });</script>";
+}
+
+if (!isset($_SESSION['username'])) {
+  $_SESSION['username'] = 'Log In';
+
+}
+
+
 ?>

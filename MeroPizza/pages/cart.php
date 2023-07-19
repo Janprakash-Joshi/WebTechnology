@@ -1,72 +1,111 @@
 <?php
 require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+session_start();
+if (isset($_POST['logout'])) {
+  header('Location:/MeroPizza/pages/login.php');
+}
+
+$query = "SELECT * FROM meropizza.items";
+$result = $conn->query($query);
+
+$data = array();
+while ($row = $result->fetch_assoc()) {
+  $data[] = $row;
+}
+// Convert PHP array to JSON
+$jsonData = json_encode($data);
+
 ?>
+<script>
+  const items = <?php echo $jsonData; ?>;
+</script>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/MeroPizza/style/main.css">
-    <link rel="stylesheet" href="/MeroPizza/style/cart.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/MeroPizza/style/main.css">
+  <link rel="stylesheet" href="/MeroPizza/style/cart.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-    <div class="icon">
-        <div id="show"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                class="bi bi-list" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-            </svg></div>
-        <div id="hide"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path
-                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
-            </svg></div>
-    </div>
-    <div class="head" id="head">
-        <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
-        <div class="menu">
-            <ul>
-                <li><a href="/MeroPizza/index.php">Home</a></li>
-            </ul>
-            <ul>
-                <li><a href="about.php">About Us</a></li>
-            </ul>
-            <ul>
-                <li><a href="order.php">Order</a></li>
-            </ul>
-            <ul>
-                <li><a href="login.php">Log In</a></li>
-            </ul>
+  <!-- Header -->
+  <div class="icon">
+    <div id="show"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-list"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+      </svg></div>
+    <div id="hide"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-x-lg"
+        viewBox="0 0 16 16">
+        <path
+          d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+      </svg></div>
+  </div>
+  <div class="head" id="head">
+    <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
+    <div class="menu">
+      <ul>
+        <li><a href="/MeroPizza/index.php">Home</a></li>
+      </ul>
+      <ul>
+        <li><a href="about.php">About Us</a></li>
+      </ul>
+      <ul>
+        <li><a href="order.php">Order</a></li>
+      </ul>
+      <ul id='login'>
 
-        </div>
-        <div class="cart">
-            <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                    class="bi bi-cart3" viewBox="0 0 16 16">
-                    <path
-                        d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                </svg></a>
-        </div>
+        <?php
+
+        if (isset($_SESSION['user_id'])) {
+          // User is logged in
+          echo '<li><a href="user.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt=""><span>' . $_SESSION['username'] . '</span></a></li>';
+          echo '
+           
+          <form action="order.php" method="POST">
+          <button name="profile">Profile</button>
+            <button name="logout">Log Out</button>
+          </form>
+          ';
+        } else {
+          // User is not logged in
+          echo '<li><a href="login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="">Log In</a></li>';
+        }
+        ?>
+      </ul>
+
     </div>
-    <!-- Header -->
+    <div class="cart">
+      <a href="cart.php"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+          class="bi bi-cart3" viewBox="0 0 16 16">
+          <path
+            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+        </svg></a>
+    </div>
+  </div>
+  <!-- Header -->
 
 
 
   <div class="cartBanner">
-    <h1><center>My Cart</center> </h1>
-    </div>
-<div id="cart-items">
-  <!-- Cart items will be dynamically added here -->
-  
-</div>
-<center><h1><b>Total Amount: </b><span id="totalAmount">0</span></h1></center>
-<center><button onclick="checkout()" class="checkOutBtn">Checkout</button></center>
+    <h1>
+      <center>My Cart</center>
+    </h1>
+  </div>
+  <div id="cart-items">
+    <!-- Cart items will be dynamically added here -->
+
+  </div>
+  <center>
+    <h1><b>Total Amount: </b><span id="totalAmount">0</span></h1>
+  </center>
+  <center><button onclick="checkout()" class="checkOutBtn">Checkout</button></center>
 
 
 
@@ -75,8 +114,7 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
 
 
 
-
-    <!-- footer -->
+  <!-- footer -->
   <footer>
     <div class="footer1">
       <div>
@@ -94,11 +132,18 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
             <li><a href="#">Contacts</a></li>
           </ul>
           <ul>
-            <li><a href="login.php">Log In</a></li>
+            <?php
+            if (isset($_SESSION['user_id'])) {
+              // User is logged in
+              echo '<li><a href="/MeroPizza/pages/login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="" width="30px">Log Out</a></li>';
+
+            } else {
+              // User is not logged in
+              echo '<li><a href="/MeroPizza/pages/login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="" width="30px">Log In</a></li>';
+            }
+            ?>
           </ul>
-          <ul>
-            <li><a href="login.php">Register</a></li>
-          </ul>
+
         </div>
       </div>
 
@@ -121,7 +166,7 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
         <p>Subscribe to the our newsletter to
           get regular update about offers</p>
         <div>
-        <input type="email" placeholder="Enter Your Email" id="newsLetterEmail">
+          <input type="email" placeholder="Enter Your Email" id="newsLetterEmail">
           <div class="button" id="newsLetterBtn">
             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-send-fill"
               viewBox="0 0 16 16">
@@ -172,9 +217,11 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
     </div>
   </footer>
   <!-- footer -->
+  <script src="/MeroPizza/js/cart.js"></script>
+  <script src="/MeroPizza/js/navbar.js"></script>
+  
 
-    <script src="/MeroPizza/js/navbar.js"></script>
-    <script src="/MeroPizza/js/cart.js"></script>
+
 </body>
 
 </html>

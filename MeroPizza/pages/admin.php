@@ -1,49 +1,111 @@
 <?php
+
 require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
 
 
-    if (isset($_POST['adminLogOut'])) {
-        header('Location:/MeroPizza/index.php?logout_success=1');
-    }
+if (isset($_POST['adminLogOut'])) {
+  header('Location:/MeroPizza/index.php?logout_success=1');
+}
+$query = "SELECT * FROM meropizza.admin WHERE id = 1";
+$result = $conn->query($query);
+
+$row = $result->fetch_assoc();
+
+//for pizza items
+
+$query1 = "SELECT * FROM meropizza.items";
+$result1 = $conn->query($query1);
+
+$data = array();
+while ($row1 = $result1->fetch_assoc()) {
+  $data[] = $row1;
+}
+// Convert PHP array to JSON
+$jsonData = json_encode($data);
+
 ?>
+<script>
+  const items = <?php echo $jsonData; ?>;
+</script>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/MeroPizza/style/main.css">
-    <link rel="stylesheet" href="/MeroPizza/style/admin.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/MeroPizza/style/main.css">
+  <link rel="stylesheet" href="/MeroPizza/style/admin.css">
 </head>
 
 <body>
 
-    <!-- Header -->
-   
-    <div class="head" id="head">
-        <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
-       
-           
+  <!-- Header -->
+
+  <div class="head" id="head">
+    <div class="logo"><img src="/MeroPizza/img/logo.png" alt=""></div>
+  </div>
+  <!-- Header -->
+
+
+
+  <div class="welcome">
+    <h1>
+      <center>Welcome to admin dashboard</center>
+    </h1>
+
+  </div>
+
+  <div class="admin">
+
+    <div class="adminInfo">
+      <img src="/MeroPizza/img/User-avatar.svg.png" alt="">
+      <label for="name">Name:</label><span name="adminName">
+        <?php echo $row['name']; ?>
+      </span><br>
+      <label for="email">Email:</label><span name="adminEmail">
+        <?php echo $row['email']; ?>
+      </span><br><br>
+      <form action="" method="post">
+        <label for="password">Change password:</label><input type="password" name="password" id="psw"><span
+          onclick="showhide()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-eye-fill" viewBox="0 0 16 16">
+            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+          </svg></span><br><br>
+        <center><button name="passwordChange">Change</button></center>
+      </form>
+
+
     </div>
-    <!-- Header -->
+    <div id="pizza-items">
+      <!-- Cart items will be dynamically added here -->
+
+    </div>
+
+    <form action="admin.php" method="POST">
+      <div id="edit-items">
+        <!-- Cart items will be dynamically added here -->
+
+      </div>
+      <center><button name="editItems" id="editItem">Update</button></center>
+    </form>
+
+  </div>
+
+  <br><br>
+  <hr><br>
+
+  <form action="admin.php" method="POST">
+    <center><button name="adminLogOut">Log Out</button></center>
+  </form>
 
 
 
-    <div class="welcome">
-<h1><center>Welcome to admin dashboard</center></h1>
-</div>
- 
-<form action="admin.php" method="POST">
-<center><button name="adminLogOut">Log Out</button></center>
-</form>
- 
-
-
-    <!-- footer -->
+  <!-- footer -->
   <footer>
     <div class="footer2">
       <div class="payment">
@@ -84,8 +146,9 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
   </footer>
   <!-- footer -->
 
-    <script src="/MeroPizza/js/navbar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
+
+  <script src="/MeroPizza/js/admin.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
 
 </body>
 
@@ -93,10 +156,63 @@ require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
 
 <?php
 if (isset($_GET['login_success']) && $_GET['login_success'] === '1') {
-    echo "<script>Swal.fire({
+  echo "<script>Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Log In Successfully',
         showConfirmButton: false,
         timer: 2500
-      });</script>";}?>
+      });</script>";
+}
+if (isset($_POST['passwordChange'])) {
+  $newPsw = $_POST['password'];
+  if ($newPsw != null) {
+    $query = "UPDATE meropizza.admin SET password = '$newPsw' WHERE id = 1";
+    $result = $conn->query($query);
+  }
+  if ($result === TRUE) {
+    echo "<script>Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Password Changed Successfully',
+      showConfirmButton: false,
+      timer: 2500
+    });</script>";
+  } else {
+    echo "<script>Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Failed',
+      showConfirmButton: false,
+      timer: 2500
+    });</script>";
+  }
+}
+
+if (isset($_POST['editItems'])) {
+  foreach ($data as $item) {
+    $id = $item['id'];
+    echo "ID: $id<br>";
+
+    $itemId = $id;
+    $itemName = $_POST['itemName' . $id];
+
+    $itemPrice = $_POST['itemPrice' . $id];
+    $sql = "UPDATE MeroPizza.items SET name = ?, price = ? WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssi", $itemName, $itemPrice, $itemId);
+
+    // Execute the statement
+    if ($stmt->execute()) {
+      // Data updated successfully
+      echo "Data updated successfully.";
+     // echo '<script>window.location.reload();</script>';
+     echo "<meta http-equiv='refresh' content='0'>";
+    } else {
+      // Error updating data
+      echo "Error: " . $stmt->error;
+    }
+  }
+
+}
+?>

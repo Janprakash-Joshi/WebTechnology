@@ -1,12 +1,7 @@
 .welcome{
     padding-top: 5vw;
 }
-footer{
-    position: absolute;
-    width: 100%;
-    bottom: 0;
 
-}
 .head{
     display: block;
     width: auto;
@@ -20,3 +15,44 @@ button{
     font-weight: bold;
     color: yellow;
 }
+.adminInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.adminInfo img{
+    width: 100px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    margin: 1rem;
+}
+
+.pizza-items{
+    padding: 2rem 0;
+}
+.pizza-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    justify-content: space-evenly;
+    font-size: 1.5rem;
+    color: white;
+  }
+  .pizza-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    margin: 5px ;
+  }
+  .admin{
+    display: flex;
+  }
+  .admin div{
+    border-right: 1px solid gray;
+    padding: 1rem;
+  }
+  .price{
+    width: 50px;
+    margin-left: 5px;
+  }
+ 

@@ -2,15 +2,17 @@
 window.addEventListener('scroll', function() {
     var element = document.getElementById('head');
     var scrollPosition = document.documentElement.scrollTop;
+    console.log(scrollPosition);
     
-    if (scrollPosition > 1) {
+    if (scrollPosition >1) {
       element.classList.add('head1');
+      
     } else {
       element.classList.remove('head1');
     }
   });
   
-
+ 
   //nav menu 
 var show=document.getElementById('show');
 var hode=document.getElementById('hide');

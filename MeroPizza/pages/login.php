@@ -1,5 +1,7 @@
 <?php
 require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+session_start();
+
 
 // login form 
 
@@ -16,7 +18,7 @@ if (isset($_POST['checkbox'])) {
 
   if ($result->num_rows === 1) {
     header('Location:/MeroPizza/pages/admin.php?login_success=1');
-     
+
     //   echo "<script>window.location.href = '/MeroPizza/index.php';</script>";
 
     exit();
@@ -38,10 +40,23 @@ if (isset($_POST['checkbox'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows === 1) {
-      header('Location:/MeroPizza/index.php?login_success=1');
+     
 
       //   echo "<script>window.location.href = '/MeroPizza/index.php';</script>";
 
+      $query = "SELECT * FROM meropizza.users";
+      $result = $conn->query($query);
+
+      $row = $result->fetch_assoc();
+
+      $_SESSION['username'] = $row['name'];
+      $_SESSION['email'] = $row['email'];
+      $_SESSION['address'] = $row['email'];
+      $_SESSION['phone'] = $row['email'];
+      $_SESSION['user_id']=$row['id'];
+
+
+      header('Location:/MeroPizza/index.php?login_success=1');
       exit();
     } else {
 
@@ -50,7 +65,7 @@ if (isset($_POST['checkbox'])) {
     }
   }
 }
- ?>
+?>
 <!DOCTYPE html>
 <html>
 
@@ -92,8 +107,14 @@ if (isset($_POST['checkbox'])) {
       <ul>
         <li><a href="order.php">Order</a></li>
       </ul>
-      <ul>
-        <li><a href="login.php">Log In</a></li>
+      <ul id='login'>
+       
+        <?php
+           session_destroy();
+          // User is not logged in
+          echo '<li><a href="login.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt="">Log In</a></li>';
+      
+        ?>
       </ul>
 
     </div>
@@ -128,10 +149,12 @@ if (isset($_POST['checkbox'])) {
         <label for="email">Email:</label><br>
         <input type="email" placeholder="Your email address" id="formEmail" name="email"><br>
         <label for="password">Password:</label><br>
-        <input type="password" placeholder="Your password" id="loginPsw" name="password"><span onclick="showhide()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-</svg></span><br><br>
+        <input type="password" placeholder="Your password" id="loginPsw" name="password"><span onclick="showhide()"><svg
+            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill"
+            viewBox="0 0 16 16">
+            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+          </svg></span><br><br>
 
         <a href="">Forget Password ?</a><br>
         <button class="loginBtn" id="formBtn" name="loginBtn">Log In</button>
@@ -145,13 +168,17 @@ if (isset($_POST['checkbox'])) {
         <input type="text" placeholder="Your full name" id="regName" name="name"><br>
         <label for="email">Email:</label><br>
         <input type="email" placeholder="Your email address" id="formEmail2" name="email2"><br>
+        <label for="address">Address:</label><br>
+        <input type="text" placeholder="Your delivery address" id="formaddress" name="address"><br>
         <label for="email">Phone:</label><br>
         <input type="text" placeholder="Your phone number" id="regPhone" name="phone"><br>
         <label for="password">New Password:</label><br>
-        <input type="password" placeholder="Your password" id="regPsw" name="password2"><span  onclick="showhide()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-  <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-</svg></span><br>
+        <input type="password" placeholder="Your password" id="regPsw" name="password2"><span onclick="showhide()"><svg
+            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill"
+            viewBox="0 0 16 16">
+            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+          </svg></span><br>
 
         <button class="loginBtn" id="formBtn2" name="formBtn2">Register</button>
       </form>
@@ -277,13 +304,14 @@ if (isset($_POST['checkbox'])) {
 if (isset($_POST['formBtn2'])) {
   $name = $_POST['name'];
   $email = $_POST['email2'];
+  $address = $_POST['address'];
   $phone = $_POST['phone'];
   $password = $_POST['password2'];
 
 
-  $sql = "INSERT INTO meropizza.users (name, email, phone, password) VALUES (?, ?, ?, ?)";
+  $sql = "INSERT INTO meropizza.users (name, email,phone, password, address) VALUES (?, ?, ?, ?,?)";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("ssss", $name, $email, $phone, $password);
+  $stmt->bind_param("sssss", $name, $email, $phone, $password, $address);
   $stmt->execute();
 
   if ($stmt->affected_rows === 1) {
@@ -293,10 +321,10 @@ if (isset($_POST['formBtn2'])) {
       title: 'Registered Successfully',
       showConfirmButton: true,
       timer: 9500
-    });</script>";}
-     else {
+    });</script>";
+  } else {
 
     echo "<script>alert('Registration failed!');</script>";
   }
 }
-$conn->close();?>
+$conn->close(); ?>
