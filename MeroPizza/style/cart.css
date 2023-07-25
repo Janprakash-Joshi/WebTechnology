@@ -62,24 +62,50 @@
     content: 'RS: ';
   }
 
-  .checkOutBtn{
+
+  .payment{
+    justify-content: center;
+    height: 10vw;
+  }
+
+  .payment button {
+  background-color: transparent;
+  color: white;
+  display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    margin: 1rem;
     cursor: pointer;
-    margin: 1rem 0;
-    padding: 10px;
-    border-radius: 10px;
-    color: white;
-    background: red;
-    font-size: 1rem;
-    font-weight: bold;
+    padding: 0.7rem;
+    border: 1px solid gray;
+    border-radius: 20%;
+    animation: chk .5s infinite;
   }
-  .checkOutBtn:hover{
-    animation: btn 5s infinite;
+  .payment img{
+    width: 50px;
   }
-  @keyframes btn {
+
+  .payment button:hover{
+    transform: scale(1.2);
+   
+  }
+
+  .checkout{
+    display: flex;
+    justify-content: center;
+
+  }
+  .checkout img{
+    width: 20vw;
+    margin-bottom: -3rem;
+  }
+  @keyframes chk {
     0%{
-        border: 3px solid gray;
-    
-    } 100%{
-        border: 3px solid yellow;
+      border:2px solid green;
+    }
+  }
+  @media (max-width:1200px) {
+    .checkout{
+      display: block;
     }
   }

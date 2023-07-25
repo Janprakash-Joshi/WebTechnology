@@ -83,7 +83,7 @@ a {
 
 }
 .cart a::after{
-    content: 'Shop Now';
+    content: 'Buy Now';
 }
 
 .border {

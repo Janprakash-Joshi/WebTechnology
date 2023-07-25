@@ -33,4 +33,3 @@ setInterval(showNextReview, 5000);
 
 
 
-

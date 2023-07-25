@@ -44,9 +44,6 @@ if (isset($_POST['checkbox'])) {
 
       //   echo "<script>window.location.href = '/MeroPizza/index.php';</script>";
 
-      $query = "SELECT * FROM meropizza.users";
-      $result = $conn->query($query);
-
       $row = $result->fetch_assoc();
 
       $_SESSION['username'] = $row['name'];
@@ -54,7 +51,8 @@ if (isset($_POST['checkbox'])) {
       $_SESSION['address'] = $row['address'];
       $_SESSION['phone'] = $row['phone'];
       $_SESSION['user_id']=$row['id'];
-
+      $_SESSION['password']=$row['password'];
+     
 
       header('Location:/MeroPizza/index.php?login_success=1');
       exit();

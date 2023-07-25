@@ -26,6 +26,7 @@
 
       const quantityElement = document.createElement("div");
       quantityElement.className = "quantity";
+      
 
       const decreaseButton = document.createElement("button");
       decreaseButton.innerText = "-";
@@ -34,6 +35,7 @@
 
       const quantityInput = document.createElement("input");
       quantityInput.type = "number";
+      quantityInput.name="quantity"+item.id;
       quantityInput.min=0;
       quantityInput.value = item.quantity;
       quantityInput.addEventListener("input", (event) => updateQuantity(item, event.target.value));

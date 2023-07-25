@@ -77,7 +77,7 @@ renderCartItems();
  
      const itemNameElement = document.createElement("input");
      itemNameElement.value = item.name;
-     console.log('1'+item.name);
+  
      itemNameElement.name="itemName"+item.id;
      cartItemElement.appendChild(itemNameElement);
  

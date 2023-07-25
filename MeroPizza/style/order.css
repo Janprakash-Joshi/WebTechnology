@@ -20,9 +20,37 @@ th{
     font-size: 3rem;
     color: yellow;
     font-weight: bold;
-    padding: 1vw 10vw;
+    padding: 1vw 5vw;
 }
 td{
-    padding: 3vw 15vw;
+    padding: 3vw 5vw;
 
+}
+
+.nestedTable {
+border: none;
+}
+.nestedTable td{
+    padding: 10px;
+}
+.nestedTable tr:first-child{
+  font-size: 2rem;
+}
+.cnt{
+    margin-bottom: 1.5rem;
+}
+.btn{
+    padding: 10px;
+    border-radius: 15px;
+    color: white;
+    background: black;
+    box-shadow: 1px 1px 1px 1px white;
+}
+.btn:hover{
+    cursor: pointer;
+    transform: scale(.9);
+}
+.total{
+    display: flex;
+    justify-content: space-between;
 }
