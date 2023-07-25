@@ -7,30 +7,31 @@ if (isset($_POST['logout'])) {
 if (isset($_POST['profile'])) {
   header('Location:/MeroPizza/pages/user.php');
 }
+if (isset($_SESSION['user_id'])) {
 
-$userId = $_SESSION['user_id'];
-$sql = "SELECT  *FROM  meropizza.orders WHERE user_id=$userId";
-$result = $conn->query($sql);
+  $userId = $_SESSION['user_id'];
+  $sql = "SELECT  *FROM  meropizza.orders WHERE user_id=$userId";
+  $result = $conn->query($sql);
 
-$data = array();
-while ($row1 = $result->fetch_assoc()) {
-  $data[] = $row1;
+  $data = array();
+  while ($row1 = $result->fetch_assoc()) {
+    $data[] = $row1;
+  }
+
+  // Convert PHP array to JSON
+  $jsonData = json_encode($data);
+
+
+  $sql = "SELECT  *from meropizza.complete_orders";
+  $result1 = $conn->query($sql);
+
+  $products = array();
+  while ($row = $result1->fetch_assoc()) {
+    $products[] = $row;
+  }
 }
-
-// Convert PHP array to JSON
-$jsonData = json_encode($data);
-
-
-$sql="SELECT product_id from meropizza.complete_orders";
-$result1 = $conn->query($sql);
-
-$products = array();
-while ($row = $result1->fetch_assoc()) {
-  $products[] = $row;
-}
-
 ?>
- 
+
 <!DOCTYPE html>
 <html>
 
@@ -43,8 +44,8 @@ while ($row = $result1->fetch_assoc()) {
   <link rel="stylesheet" href="/MeroPizza/style/main.css">
   <link rel="stylesheet" href="/MeroPizza/style/order.css">
   <script>
-  const items = <?php echo $jsonData; ?>;
-</script>
+    const items = <?php echo $jsonData; ?>;
+  </script>
 </head>
 
 <body>
@@ -128,9 +129,11 @@ while ($row = $result1->fetch_assoc()) {
             <tr>
               <td>
                 Product:
-              </td><td>
+              </td>
+              <td>
                 Quantity:
-              </td><td>
+              </td>
+              <td>
                 Rate:
               </td>
               <td>
@@ -138,37 +141,46 @@ while ($row = $result1->fetch_assoc()) {
               </td>
             </tr>
           </table>
-         
+
         </td>
-        <td >
+        <td>
           <ul id="statusData">
-  
-              <?php
+
+            <?php
+            if (isset($_SESSION['user_id'])) {
               foreach ($data as $item) {
                 $id = $item['id'];
                 foreach ($products as $product) {
                   if ($item['id'] == $product['product_id']) {
-                      echo"<li> Order Placed: ".$item['product']."</li>";
+                    echo "<br><br><li> Order Placed: " . $item['product'] . "</li>";
+                    if($product['out_for_delivery']!=0){
+                      echo "<li> Out For Delivery: " . $item['product']."<br>" .$product['date']."<br>"."Our delivery partener will contact you.". "</li>";
+                    }
+                    if($product['delivery']!=0 ){
+                      echo "<li style=color:green> Delivered: " . $item['product'] . "<br><hr></li>";
+                    }
                   }
+                 
                 }
               }
-              ?>
-            
+            }
+            ?>
+
           </ul>
         </td>
       </tr>
-     <tr>
-      <td>
-     <div class="total">
-     <form action="order.php" method="POST">
-            <input type="submit" class="btn" name="cancelBtn" value="Cancel">
-          </form>
-        <div>
-          <h3>TOTAL AMOUNT:  <span id="totalAmt"></span></h3>
-        </div>
-      </div>
-      </td>
-     </tr>
+      <tr>
+        <td>
+          <div class="total">
+            <form action="order.php" method="POST">
+              <input type="submit" class="btn" name="cancelBtn" value="Cancel">
+            </form>
+            <div>
+              <h3>TOTAL AMOUNT: <span id="totalAmt"></span></h3>
+            </div>
+          </div>
+        </td>
+      </tr>
     </table>
   </div>
 
@@ -273,10 +285,10 @@ while ($row = $result1->fetch_assoc()) {
     </div>
   </footer>
   <!-- footer -->
- 
+
   <script src="/MeroPizza/js/navbar.js"></script>
   <script src="/MeroPizza/js/order.js"></script>
-  
+
 </body>
 
 </html>
@@ -285,33 +297,32 @@ while ($row = $result1->fetch_assoc()) {
 
 
 
-if(isset($_POST['cancelBtn'])){
-foreach ($data as $item) {
-  $id = $item['id'];
-  $found = false; 
-  
-  foreach ($products as $product) {
+if (isset($_POST['cancelBtn'])) {
+  foreach ($data as $item) {
+    $id = $item['id'];
+    $found = false;
+
+    foreach ($products as $product) {
       if ($item['id'] == $product['product_id']) {
-          $found = true;
-          echo '<script>
+        $found = true;
+        echo '<script>
           dataItem.style.color="red";
           dataPrice.style.color="red";
           dataQuantity.style.color="red";
           dataPayment.style.color="red";
           </script>';
-          break; 
-          
+        break;
       }
-  }
-  
+    }
 
-  if (!$found) {
+
+    if (!$found) {
       $sql = "DELETE FROM meropizza.orders WHERE id = $id";
       $conn->query($sql);
-      echo"<script>
+      echo "<script>
        window.location.href = 'order.php';
       </script>";
+    }
   }
-}
 }
 ?>
