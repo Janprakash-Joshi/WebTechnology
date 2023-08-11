@@ -224,10 +224,7 @@ if (isset($_POST['updateInfo'])) {
   $_SESSION['phone'] = $phone;
   // echo '<script>window.location.reload();</script>';
 
-} else {
-  // Error updating data
-  echo "Error: " . $stmt->error;
-}
+} 
 
 if(isset($_POST['updatePassword'])){
   $cpassword=$_POST['cpassword'];

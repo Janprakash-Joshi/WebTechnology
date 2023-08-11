@@ -21,6 +21,9 @@ items.forEach(item => {
     dataPrice=document.createElement('td');
     dataPrice.textContent=item['price'];
 
+    dataAmount=document.createElement('td');
+    dataAmount.textContent=item['price']*item['quantity'];
+  
     dataPayment=document.createElement('td');
     dataPayment.textContent=item['payment'];
     
@@ -29,10 +32,9 @@ items.forEach(item => {
     dataElement.appendChild(dataItem);
     dataElement.appendChild(dataQuantity);
     dataElement.appendChild(dataPrice);
+    dataElement.appendChild(dataAmount);
     dataElement.appendChild(dataPayment);
    
     
 });
 
-totalAmountElement=document.getElementById('totalAmt');
-totalAmountElement.textContent=totalAmount;

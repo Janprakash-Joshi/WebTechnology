@@ -15,8 +15,11 @@ function validateName(name){
         return false;
     }
     else{
-        return true;
+        const nameRegex = /^[a-zA-Z ]+$/u;
+         return nameRegex.test(name);
     }
+   
+   
 }
 
 //phone valid

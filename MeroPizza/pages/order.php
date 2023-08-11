@@ -137,6 +137,9 @@ if (isset($_SESSION['user_id'])) {
                 Rate:
               </td>
               <td>
+                Amount:
+              </td>
+              <td>
                 Payment Method:
               </td>
             </tr>
@@ -152,12 +155,12 @@ if (isset($_SESSION['user_id'])) {
                 $id = $item['id'];
                 foreach ($products as $product) {
                   if ($item['id'] == $product['product_id']) {
-                    echo "<br><br><li> Order Placed: " . $item['product'] . "</li>";
+                    echo "<br><br><li> Order Placed: " . $item['product']. ' -- '.$item['date']."</li>";
                     if($product['out_for_delivery']!=0){
                       echo "<li> Out For Delivery: " . $item['product']."<br>" .$product['date']."<br>"."Our delivery partener will contact you.". "</li>";
                     }
                     if($product['delivery']!=0 ){
-                      echo "<li style=color:green> Delivered: " . $item['product'] . "<br><hr></li>";
+                      echo "<li style=color:green> Delivered: " . $item['product']. "<br><hr></li>";
                     }
                   }
                  
@@ -171,14 +174,42 @@ if (isset($_SESSION['user_id'])) {
       </tr>
       <tr>
         <td>
-          <div class="total">
-            <form action="order.php" method="POST">
-              <input type="submit" class="btn" name="cancelBtn" value="Cancel">
-            </form>
-            <div>
-              <h3>TOTAL AMOUNT: <span id="totalAmt"></span></h3>
-            </div>
-          </div>
+          <?php
+          if(isset($_SESSION['user_id'])){
+            $btn=false;
+        foreach ($data as $item) {
+                $id = $item['id'];
+                if($products==null && $btn==false){
+                  echo'
+
+                  <div class="total">
+                  <form action="order.php" method="POST">
+                    <input type="submit" class="btn" name="cancelBtn" value="Cancel">
+                  </form>
+                  
+                </div>
+
+                  ';
+                  $btn=true;
+                }
+                foreach ($products as $product) {
+                  if ($item['id'] != $product['product_id']  && $btn==false){
+                    echo'
+
+                    <div class="total">
+                    <form action="order.php" method="POST">
+                      <input type="submit" class="btn" name="cancelBtn" value="Cancel">
+                    </form>
+                    
+                  </div>
+
+                    ';
+                    $btn=true;
+                  }
+                }
+              }
+            }
+          ?>
         </td>
       </tr>
     </table>
@@ -305,13 +336,6 @@ if (isset($_POST['cancelBtn'])) {
     foreach ($products as $product) {
       if ($item['id'] == $product['product_id']) {
         $found = true;
-        echo '<script>
-          dataItem.style.color="red";
-          dataPrice.style.color="red";
-          dataQuantity.style.color="red";
-          dataPayment.style.color="red";
-          </script>';
-        break;
       }
     }
 
