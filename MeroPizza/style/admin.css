@@ -52,7 +52,88 @@ button{
     padding: 1rem;
   }
   .price{
-    width: 50px;
+    width: 50px !important;
     margin-left: 5px;
+    color: green !important;
   }
+
+#edit-items input{
+  width: 20vw;
+  background: black;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 7px;
+  color: white;
+}
+
  
+    input[type="checkbox"] {
+      
+      width: 18px;
+      height: 18px;
+      margin: 2px 3rem 0 5px;
+      border-radius: 4px; 
+      cursor: pointer;
+  }
+
+ 
+
+.table-container {
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+}
+  .receipt{
+    padding: 10px;
+    border-radius: 15px;
+    color: white;
+    background: black;
+    box-shadow: 1px 1px 1px 1px white;
+    cursor: pointer;
+  }
+td,th{
+  text-align: center;
+  padding: 5px;
+  border: 1px solid white;
+}
+th{
+  
+  color: yellowgreen;
+ 
+}
+
+
+  
+.table-wrapper {
+  margin: 5rem 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+  border: 11px solid #181616;
+  padding: 1rem;
+  
+  border-radius: 25px;
+animation: order 5s infinite ease-in-out;
+}
+@keyframes order {
+  0%{
+    box-shadow: 0px 0px 45px 5px #7066e0;
+    ;
+  }
+  
+  50%{
+    box-shadow: 0px 0px 25px 5px #7066e0;
+    ;
+  }
+  
+  100%{
+    box-shadow: 0px 0px 45px 5px #7066e0;
+    ;
+  }
+}
+ 
+.logoutbtn{
+  position: absolute;
+  top: 40vw;
+  left: 10vw;
+
+}
