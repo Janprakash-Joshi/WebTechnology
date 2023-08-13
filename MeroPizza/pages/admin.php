@@ -166,16 +166,29 @@ if (isset($_POST['receipt_button'])) {
       <!-- Cart items will be dynamically added here -->
 
     </div>
+    
 
     <form action="admin.php" method="POST">
       <div id="edit-items">
         <!-- Cart items will be dynamically added here -->
 
       </div>
+      <div class="flex" style="justify-content: space-between;">
       <center><button name="editItems" id="editItem">Update</button></center>
+      <center><button name="deleteItems" id="deleteItem">Delete</button></center></div>
     </form>
 
+
+    <div class="addItems">
+       <form action="pizzaupload.php" method="post" enctype="multipart/form-data">
+      <label for="">Image:</label><input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" placeholder="Choose Image" required >
+       <br><label for="">Pizza Name:</label><input type="text" name="pizzaName" placeholder="Enter Name" class="inputItem" required>
+       <br><label for="">Price:</label><input type="Number" name="pizzaPrice" placeholder="Enter PICE" class="inputItem" min="0" required>
+       <input type="submit" name="submit" value="Add Pizza" style="padding:5px;" >
+      </form>
+    </div>
   </div>
+  
 
 
   <form action="admin.php" method="POST" class="table-container" id="myForm">
@@ -433,10 +446,10 @@ if (isset($_POST['passwordChange'])) {
 }
 
 if (isset($_POST['editItems'])) {
-  echo 'hi';
+  
   foreach ($data as $item) {
     $id = $item['id'];
-    echo "ID: $id<br>";
+    
 
     $itemId = $id;
     $itemName = $_POST['itemName' . $id];
@@ -459,5 +472,47 @@ if (isset($_POST['editItems'])) {
   }
 }
 
+
+if (isset($_POST['deleteItems'])) {
+  foreach ($data as $item) {
+    $last=$item['id'];
+   
+  }
+  
+  if($last==1){
+    $sql="ALTER TABLE meropizza.items AUTO_INCREMENT=2";
+    $stmt=$conn->prepare($sql);
+    $stmt->execute();
+
+    echo "<script>Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'One Item Required',
+      showConfirmButton: false,
+      
+      timer: 2500
+    });</script>";
+  }
+  else{
+    $sql="DELETE FROM meropizza.items WHERE id=$last";
+    $stmt = $conn->prepare($sql);
+    if($stmt->execute()){
+      echo "<meta http-equiv='refresh' content='0'>";
+    }
+  }
+
+}
+
+if (isset($_GET['upload_success']) && $_GET['upload_success'] === '1') {
+ 
+  echo "<script>Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Pizza Added Successfully',
+    showConfirmButton: false,
+    
+    timer: 2500
+  });</script>";
+}
 
 ?>

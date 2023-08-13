@@ -1,11 +1,24 @@
 <?php
-session_start();
-$user_id = $_SESSION['user_id'];
-$target_dir = __DIR__ . "/../uploads/userProfiles/";
+require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+$query1 = "SELECT * FROM meropizza.items";
+$result1 = $conn->query($query1);
+
+$data = array();
+while ($row1 = $result1->fetch_assoc()) {
+  $data[] = $row1;
+  
+}
+foreach($data as $items){
+    $itemId=$items['id']+1;
+}
+
+
+
+$target_dir = __DIR__ . "/../uploads/pizza/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-$target_file1 = $target_dir .$_SESSION['user_id']."pp".".".$imageFileType;
+$target_file1 = $target_dir .$itemId."img".".".$imageFileType;
 
 $uploadOk = 1;
 
@@ -13,6 +26,11 @@ $uploadOk = 1;
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
 
+   $name=$_POST['pizzaName'];
+   $price=$_POST['pizzaPrice'];
+   echo $name;
+   $img="/meropizza/uploads/pizza/".$itemId."img.".$imageFileType;
+    
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
   if($check !== false) {
     echo "File is an image - " . $check["mime"] . ".";
@@ -30,7 +48,7 @@ if(isset($_POST["submit"])) {
 // }
 
 // Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
+if ($_FILES["fileToUpload"]["size"] > 5000000) {
   echo "Sorry, your file is too large.";
   $uploadOk = 0;
 }
@@ -46,14 +64,20 @@ if ($uploadOk == 0) {
   echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-  if(file_exists(__DIR__ . "/../uploads/userProfiles/".$user_id."pp.png") || file_exists(__DIR__ . "/../uploads/userProfiles/".$user_id."pp.jpg") || file_exists(__DIR__ . "/../uploads/userProfiles/".$user_id."pp.jpeg")){
-    unlink(__DIR__ . "/../uploads/userProfiles/".$user_id."pp.jpg");
-    unlink(__DIR__ . "/../uploads/userProfiles/".$user_id."pp.png");
-    unlink(__DIR__ . "/../uploads/userProfiles/".$user_id."pp.jpeg");
-  }
+    if(!empty($name) && !empty($price)){
+        if (preg_match('/^\d+(\.\d{1,2})?$/', $price)){
+            $sql = "INSERT INTO meropizza.items (name, price,img) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("sis", $name, $price, $img);
+            $stmt->execute();
+        }
+        else{
+            echo "invalid";
+        }
+    }
    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file1)) {
-    header('Location:/MeroPizza/pages/user.php?upload_success=1');
-    echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+    header('Location:/MeroPizza/pages/admin.php?upload_success=1');
+    //echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
   } else {
     echo "Sorry, there was an error uploading your file.";
   }

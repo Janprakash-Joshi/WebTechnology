@@ -57,7 +57,7 @@ button{
     color: green !important;
   }
 
-#edit-items input{
+#edit-items input,.inputItem{
   width: 20vw;
   background: black;
   border: 1px solid white;
@@ -82,6 +82,7 @@ button{
   margin-right: 1rem;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
   .receipt{
     padding: 10px;
@@ -136,4 +137,13 @@ animation: order 5s infinite ease-in-out;
   top: 40vw;
   left: 10vw;
 
+}
+.addItems input{
+  margin-bottom: 1rem;
+}
+
+@media (max-width:1175px) {
+  .admin{
+    flex-wrap: wrap;
+  }
 }

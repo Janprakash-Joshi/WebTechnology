@@ -109,7 +109,7 @@ $jsonData = json_encode($data);
     <div class="payment">
 
       <button onclick="checkout()" name="checkoutCashOnDelivery">Cash On Delivery<img src="/MeroPizza/img/cashondelivery.png" alt=""></button>
-      <button onclick="checkout()" name="checkoutEsewa">Esewa<img src="/MeroPizza/img/esewa.png" alt=""></button>
+      <button onclick="Echeckout()" name="checkoutEsewa">Esewa<img src="/MeroPizza/img/esewa.png" alt=""></button>
   </form>
 
   </div>

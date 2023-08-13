@@ -74,11 +74,7 @@
     renderCartItems();
   }
 
-  // Function to handle checkout
-  function checkout() {
-    totalAmount();
-    console.log("Proceeding to checkout...");
-  }
+ 
 
   // Add sample items to cart
   items.forEach(item => {
@@ -98,4 +94,12 @@
     });
 
     elementTotalAmount.innerText=totalAmount;
+  }
+
+
+ 
+
+   // Function to handle Echeckout
+   function Echeckout() {
+    window.alert('Currently cash on delivery is avilable (You can add EPAY API for Online payment system)');
   }
