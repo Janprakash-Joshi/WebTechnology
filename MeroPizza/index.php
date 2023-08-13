@@ -1,6 +1,6 @@
 <?php
-session_start();
 require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
+require 'C:\xampp\htdocs\MeroPizza\pages\profile.php';
 if (isset($_POST['logout'])) {
   header('Location:/MeroPizza/pages/login.php');
 }
@@ -48,12 +48,14 @@ if (isset($_POST['profile'])) {
         <li><a href="pages/order.php">Order</a></li>
       </ul>
       <ul id='login'>
-
+      
         <?php
 
         if (isset($_SESSION['user_id'])) {
           // User is logged in
-          echo '<li><a href="pages/user.php"><img src="img/User-avatar.svg.png" alt=""><span>' . $_SESSION['username'] . '</span></a></li>';
+         
+          echo '<li><a href="pages/user.php"><img src="' . $image_path . '" alt="User Image" id="pic"><span>' . $_SESSION['username'] . '</span></a></li>';
+
           echo '
            
           <form action="index.php" method="POST">

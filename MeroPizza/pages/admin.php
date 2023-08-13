@@ -100,7 +100,7 @@ if (isset($_POST['receipt_button'])) {
 
   // Output the PDF as a download
   $pdf->Output('receipt.pdf', 'D');
-  echo $item_id;
+  
 }
 
 

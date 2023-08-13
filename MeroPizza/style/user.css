@@ -15,8 +15,8 @@
     }
 
     .container {
-      max-width: 60vw;
-      margin: 0 auto;
+     
+      margin: 0 10rem 0 5rem;
       padding: 1rem;
       display: flex;
     }
@@ -26,6 +26,11 @@
 
     .user-info {
       margin-bottom: 1rem;
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
     }
 
     .user-info label {
@@ -41,7 +46,9 @@
       border: 1px solid #ccc;
       padding: 1rem;
     }
-
+    .change-password-form{
+      width: 50%;
+    }
     .change-password-form label {
       font-weight: bold;
     }
@@ -63,4 +70,12 @@
     .change-password-form button:hover {
       background-color: #444;
     }
-  
+  #ppedit:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+  #pic{
+    border: 1px solid;
+    border-radius: 10px;
+    width: 100px;
+  }

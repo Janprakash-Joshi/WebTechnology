@@ -442,16 +442,18 @@ a:hover {
     border: 1px solid gray;
     border-radius: 50px;
     height: 5vw;
+    padding: 5px;
 
 }
 #login a{
     display: flex;
     color: yellowgreen;
+    align-items: center;
+    margin-left: -50px;
 }
 #login img{
 width: 50px;
 border-radius: 50%;
-filter: invert();
 }
 #login form button{
     padding: 5px;

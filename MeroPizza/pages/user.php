@@ -1,6 +1,7 @@
 <?php
 require 'C:\xampp\htdocs\MeroPizza\db_connect.php';
-session_start();
+require 'C:\xampp\htdocs\MeroPizza\pages\profile.php';
+
 if (isset($_POST['logout'])) {
   header('Location:/MeroPizza/pages/login.php');
 }
@@ -47,7 +48,7 @@ if (isset($_POST['logout'])) {
 
         if (isset($_SESSION['user_id'])) {
           // User is logged in
-          echo '<li><a href="user.php"><img src="/MeroPizza/img/User-avatar.svg.png" alt=""><span>' . $_SESSION['username'] . '</span></a></li>';
+          echo '<li><a href="pages/user.php"><img src="' . $image_path . '" alt="User Image" id="pic"><span>' . $_SESSION['username'] . '</span></a></li>';
           echo '
            
           <form action="order.php" method="POST">
@@ -79,7 +80,20 @@ if (isset($_POST['logout'])) {
 
   <div class="container">
     <div class="user-info">
-      <img src="\MeroPizza\img\User-avatar.svg.png" alt="" width="50px"><br>
+      <div>
+        <img src="<?php echo  $image_path?>" alt="User Image" id="pic"><br>
+        <form action="ppupload.php" method="post" enctype="multipart/form-data">
+          <div id="ppedit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+            </svg>
+          </div>
+          <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" required hidden>
+          <input type="submit" name="submit" id="pp" hidden>
+
+        </form>
+      </div>
 
       <?php
       if (isset($_SESSION['user_id'])) {
@@ -180,6 +194,7 @@ if (isset($_POST['logout'])) {
   <!-- footer -->
 
   <script src="/MeroPizza/js/navbar.js"></script>
+  <script src="/MeroPizza/js/user.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
 </body>
 
@@ -224,15 +239,15 @@ if (isset($_POST['updateInfo'])) {
   $_SESSION['phone'] = $phone;
   // echo '<script>window.location.reload();</script>';
 
-} 
+}
 
-if(isset($_POST['updatePassword'])){
-  $cpassword=$_POST['cpassword'];
-  $npassword=$_POST['npassword'];
-  $rpassword=$_POST['rpassword'];
+if (isset($_POST['updatePassword'])) {
+  $cpassword = $_POST['cpassword'];
+  $npassword = $_POST['npassword'];
+  $rpassword = $_POST['rpassword'];
   $id = $_SESSION['user_id'];
 
-  if($npassword!==$rpassword){
+  if ($npassword !== $rpassword) {
     echo "<script>Swal.fire({
       position: 'center',
       icon: 'error',
@@ -240,8 +255,7 @@ if(isset($_POST['updatePassword'])){
       showConfirmButton: true
     });
     </script>";
-  }
-  else if($cpassword!==$_SESSION['password']){
+  } else if ($cpassword !== $_SESSION['password']) {
     echo "<script>Swal.fire({
       position: 'center',
       icon: 'error',
@@ -249,9 +263,7 @@ if(isset($_POST['updatePassword'])){
       showConfirmButton: true
     });
     </script>";
-   
-  }
-  else if($npassword==$_SESSION['password']){
+  } else if ($npassword == $_SESSION['password']) {
     echo "<script>Swal.fire({
       position: 'center',
       icon: 'error',
@@ -259,16 +271,13 @@ if(isset($_POST['updatePassword'])){
       showConfirmButton: true
     });
     </script>";
-   
-  }
-  
-  else{
+  } else {
 
     $sql = "UPDATE MeroPizza.users SET password = ? WHERE id = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("si", $npassword, $id);
-  $stmt->execute();
-  $_SESSION['password']=$npassword;
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("si", $npassword, $id);
+    $stmt->execute();
+    $_SESSION['password'] = $npassword;
     echo "<script>Swal.fire({
       position: 'center',
       icon: 'success',
@@ -279,5 +288,17 @@ if(isset($_POST['updatePassword'])){
     </script>";
   }
 }
+
+if (isset($_GET['upload_success']) && $_GET['upload_success'] === '1') {
+  echo "<script>Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Profile Updated Successfully',
+    showConfirmButton: false,
+    
+    timer: 2500
+  });</script>";
+}
+
 
 ?>

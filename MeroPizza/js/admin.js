@@ -95,7 +95,7 @@ function editCartItems() {
 }
 editCartItems();
 
-document.getElementById("myForm").addEventListener("submit", function() {
+document.getElementById("update").addEventListener("submit", function() {
    // Enable the disabled checkboxes before submitting the form
    var checkboxes = document.querySelectorAll("input[type=checkbox][disabled]");
    checkboxes.forEach(function(checkbox) {
