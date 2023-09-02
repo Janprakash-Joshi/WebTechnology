@@ -48,7 +48,7 @@ if (isset($_POST['logout'])) {
 
         if (isset($_SESSION['user_id'])) {
           // User is logged in
-          echo '<li><a href="pages/user.php"><img src="' . $image_path . '" alt="User Image" id="pic"><span>' . $_SESSION['username'] . '</span></a></li>';
+          echo '<li><a href="user.php"><img src="' . $image_path . '" alt="User Image" id="pic"><span>' . $_SESSION['username'] . '</span></a></li>';
           echo '
            
           <form action="order.php" method="POST">
@@ -122,7 +122,7 @@ if (isset($_POST['logout'])) {
 
     <?php echo '
     <div class="change-detail-form change-password-form">
-      <h2>Change Password</h2>
+      <h2>Update Details</h2>
       <form action="user.php" method="POST">
         
         <label for="name">Name:</label>

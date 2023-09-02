@@ -54,7 +54,7 @@ if (isset($_POST['profile'])) {
 
         if (isset($_SESSION['user_id'])) {
           // User is logged in
-          echo '<li><a href="pages/user.php"><img src="' . $image_path . '" alt="User Image" id="pic"><span>' . $_SESSION['username'] . '</span></a></li>';
+          echo '<li><a href="user.php"><img src="' . $image_path . '" alt="User Image" id="pic"><span>' . $_SESSION['username'] . '</span></a></li>';
           echo '
            
           <form action="about.php" method="POST">
