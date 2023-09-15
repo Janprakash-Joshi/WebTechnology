@@ -4,8 +4,6 @@ session_start();
 
 
 // login form 
-
-
 if (isset($_POST['checkbox'])) {
   $email = $_POST['email'];
   $password = $_POST['password'];

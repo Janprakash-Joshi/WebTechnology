@@ -236,7 +236,7 @@ if (isset($_POST['receipt_button'])) {
           echo "<td>" . $item['price'] * $item['quantity'] . "</td>";
           echo "<td>" . $item['payment'] . "</td>";
           echo "<td>" . $item['date'] . "</td>";
-          echo '<td><lable>Execute:</lable><input type="checkbox" name="execute' . $item['id'] . '" id="execute' . $item['id'] . '" class="checkbox"></td>';
+          echo '<td><lable>Accept:</lable><input type="checkbox" name="execute' . $item['id'] . '" id="execute' . $item['id'] . '" class="checkbox"></td>';
           echo '<td><lable>Out For Delivery:</lable><input type="checkbox" name="out' . $item['id'] . '" id="out' . $item['id'] . '" class="checkbox"></td>';
           echo '<td><lable>Delivered:</lable><input type="checkbox" name="delivered' . $item['id'] . '" id="delivered' . $item['id'] . '" class="checkbox"></td>';
           echo '<td>

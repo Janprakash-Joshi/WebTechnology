@@ -110,9 +110,9 @@ $jsonData = json_encode($data);
 
       <button onclick="checkout()" name="checkoutCashOnDelivery">Cash On Delivery<img src="/MeroPizza/img/cashondelivery.png" alt=""></button>
       <button onclick="Echeckout()" name="checkoutEsewa">Esewa<img src="/MeroPizza/img/esewa.png" alt=""></button>
+    </div>
   </form>
 
-  </div>
 
 
   <!-- footer -->
@@ -257,14 +257,14 @@ if (isset($_POST['checkoutCashOnDelivery'])) {
       });
       </script>";
   } else {
-    $orderDateTime = date('Y-m-d')."-".date('H:i:s');
-   
-    
+    $orderDateTime = date('Y-m-d') . "-" . date('H:i:s');
+
+
     $_SESSION['orderName'] = $orderName;
     $_SESSION['orderQuantity'] = $orderQuantity;
 
     $length = count($orderName);
-    $payment="Cash On Delivery";
+    $payment = "Cash On Delivery";
 
 
     for ($i = 0; $i < $length; $i++) {
@@ -278,7 +278,7 @@ if (isset($_POST['checkoutCashOnDelivery'])) {
       $stmt->execute();
     }
     if ($stmt->affected_rows === 1) {
-    echo "<script>Swal.fire({
+      echo "<script>Swal.fire({
       position: 'center',
       icon: 'success',
       title: 'Order Success',
@@ -288,9 +288,130 @@ if (isset($_POST['checkoutCashOnDelivery'])) {
       // Redirect the user to another page after the alert is closed
       window.location.href = 'order.php';
     });
-    </script>";}
+    </script>";
+    }
   }
-  
 }
+
+if (isset($_POST['checkoutEsewa'])) {
+  foreach ($data as $item) {
+    $id = $item['id'];
+    $quantity = $_POST['quantity' . $id];
+    $price = $item['price'];
+
+    if ($quantity > 0) {
+      $orderName[] = $item['name'];
+      $orderQuantity[] = $quantity;
+      $orderPrice[] = $price;
+      $amt += ($quantity * $price);
+    }
+  }
+
+
+  $_SESSION['orderName'] = $orderName;
+  $_SESSION['orderQuantity'] = $orderQuantity;
+  $_SESSION['orderPrice'] = $orderPrice;
+  $_SESSION['totalAmount'] = $amt;
+
+  if (!isset($_SESSION['user_id'])) {
+    echo "<script>Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: 'Log In First',
+      showConfirmButton: false,
+      timer:3000
+      
+    }).then(() => {
+      
+      window.location.href = 'login.php';
+    });
+    </script>";
+  } else if ($amt <= 0) {
+    echo "<script>Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'No items are selected !',
+        showConfirmButton: true
+      });
+      </script>";
+  } else {
+
+
+    echo "<script>
+      window.location.href = 'esewa.php';
+    
+    </script>";
+  }
+}
+
+
+
+if (isset($_GET['q']) && $_GET['q'] === 'su') {
+  $orderName = $_SESSION['orderName'];
+  $orderQuantity = $_SESSION['orderQuantity'];
+  $orderPrice = $_SESSION['orderPrice'];
+  $amt = $_SESSION['totalAmount'];
+  $orderDateTime = date('Y-m-d') . "-" . date('H:i:s');
+  $length = count($orderName);
+  $out_for_delivery = 0;
+  $delivery = 0;
+
+
+  if (isset($_GET['refId'])) {
+
+    $refId = $_GET['refId'];
+  } else {
+    $refId = "--";
+  }
+  $payment = "Paid By Esewa " . "[$refId]";
+
+  for ($i = 0; $i < $length; $i++) {
+    $order_name = $orderName[$i];
+    $order_quantity = $orderQuantity[$i];
+    $order_price = $orderPrice[$i];
+
+    $sql = "INSERT INTO meropizza.orders (user_id, product, quantity, price,date,payment) VALUES (?, ?, ?, ?,?,?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("isssss", $_SESSION['user_id'], $order_name, $order_quantity, $order_price, $orderDateTime, $payment);
+    $stmt->execute();
+
+
+    $query = "SELECT MAX(id) AS last_id FROM meropizza.orders";
+    $result = $conn->query($query);
+
+    // Check if the query was successful
+    if ($result) {
+      // Fetch the result row
+      $row = $result->fetch_assoc();
+
+      // Access the value using the alias "last_id"
+      $lastId = $row['last_id'];
+    }
+
+    $sql1 = "INSERT INTO MeroPizza.complete_orders (product_id, out_for_delivery, delivery, date, user_id) VALUES (?, ?, ?, ?, ?)";
+    $stmt1 = $conn->prepare($sql1);
+    $stmt1->bind_param("iiisi", $lastId, $out_for_delivery, $delivery,  $orderDateTime, $_SESSION['user_id']);
+    $stmt1->execute();
+  }
+  if ($stmt->affected_rows === 1) {
+    echo "<script>Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Order Success',
+      showConfirmButton: false,
+      timer:3000
+    }).then(() => {
+      // Redirect the user to another page after the alert is closed
+     window.location.href = 'order.php';
+    });
+    </script>";
+  }
+}
+
+
+
+
+
+
 
 ?>

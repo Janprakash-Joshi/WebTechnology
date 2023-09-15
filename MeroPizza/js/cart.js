@@ -100,6 +100,4 @@
  
 
    // Function to handle Echeckout
-   function Echeckout() {
-    window.alert('Currently cash on delivery is avilable (You can add EPAY API for Online payment system)');
-  }
+  
