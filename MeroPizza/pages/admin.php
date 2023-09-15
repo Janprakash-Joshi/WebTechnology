@@ -4,7 +4,7 @@ require 'C:\xampp\htdocs\MeroPizza\tcpdf\tcpdf.php';
 
 
 if (isset($_POST['adminLogOut'])) {
-  header('Location:/MeroPizza/index.php?logout_success=1');
+  header('Location:/MeroPizza/pages/login.php?logout_success=1');
 }
 
 $query = "SELECT * FROM meropizza.admin WHERE id = 1";
