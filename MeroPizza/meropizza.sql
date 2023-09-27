@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2023 at 03:09 AM
+-- Generation Time: Sep 27, 2023 at 12:41 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -74,7 +74,7 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`id`, `name`, `price`, `img`) VALUES
-(1, 'pan pizza (veg)', '550', '/meropizza/uploads/pizza/1img.jpg'),
+(1, 'pan pizza (veg)', '500', '/meropizza/uploads/pizza/1img.jpg'),
 (2, 'pan pizza ( Non-Veg)', '700', '/meropizza/uploads/pizza/2img.jpg'),
 (3, 'cheesy Max Pizza (veg)', '800', '/meropizza/uploads/pizza/3img.jpg'),
 (4, 'cheesy Max Pizza (non-veg)', '1000', '/meropizza/uploads/pizza/4img.jpg');
@@ -93,6 +93,19 @@ CREATE TABLE `orders` (
   `price` varchar(255) DEFAULT NULL,
   `date` varchar(255) DEFAULT NULL,
   `payment` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `review`
+--
+
+CREATE TABLE `review` (
+  `id` int(11) NOT NULL,
+  `content` varchar(250) DEFAULT NULL,
+  `orderid` int(11) DEFAULT NULL,
+  `userid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -139,6 +152,12 @@ ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `review`
+--
+ALTER TABLE `review`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -164,12 +183,18 @@ ALTER TABLE `complete_orders`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `review`
+--
+ALTER TABLE `review`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
