@@ -31,6 +31,14 @@ if (isset($_SESSION['user_id'])) {
     $products[] = $row;
   }
 }
+$sql = "SELECT  *from meropizza.review";
+$result2 = $conn->query($sql);
+
+$reviews = array();
+while ($row = $result2->fetch_assoc()) {
+  $reviews[] = $row;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +50,10 @@ if (isset($_SESSION['user_id'])) {
   <title></title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/MeroPizza/style/main.css">
   <link rel="stylesheet" href="/MeroPizza/style/order.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js"></script>
   <script>
     const items = <?php echo $jsonData; ?>;
   </script>
@@ -156,18 +166,65 @@ if (isset($_SESSION['user_id'])) {
                 $id = $item['id'];
                 foreach ($products as $product) {
                   if ($item['id'] == $product['product_id']) {
-                    echo "<br><br><li> Order Placed: " . $item['product']. ' -- '.$item['date']."</li>";
-                    if($product['out_for_delivery']!=0){
-                      echo "<li> Out For Delivery: " . $item['product']."<br>" .$product['date']."<br>"."Our delivery partener will contact you.". "</li>";
+                    echo "<br><br><li> Order Placed: " . $item['product'] . ' -- ' . $item['date'] . "</li>";
+                    if ($product['out_for_delivery'] != 0) {
+                      echo "<li> Out For Delivery: " . $item['product'] . "<br>" . $product['date'] . "<br>" . "Our delivery partener will contact you." . "</li>";
                     }
-                    if($product['delivery']!=0 ){
-                      echo "<li style=color:green> Delivered: " . $item['product']. "<br><hr></li>";
+                    if ($product['delivery'] != 0) {
+                      echo "<li style=color:green> Delivered: " . $item['product'] . "<br><hr></li>";
+                      $reviewed=false;
+                     
+                      foreach ($reviews as $review) {
+                        if ($review['orderid'] == $product['product_id']) {
+                          $reviewed = true;
+                          $reviewid=$review['orderid'];
+                          break;
+                        }
+                      }
+                      if ($reviewed == true){
+                        echo " <br><center>Review: " . $review['content'] . "</center><br>";
+
+                      }
+                      if ($reviewed == false) {
+                        echo " 
+                        <form action='order.php' method='post'>
+                        <input type='text' placeholder='Write your review here.....' id='reviewInp' name='content'> 
+                         <input type='submit' value='send' id='reviewSub' name='reviewSub'>
+                         </form>
+                         ";
+
+                        if (isset($_POST['reviewSub'])) {
+                          $orderid = $product['product_id'];
+                          $userid = $_SESSION['user_id'];
+                          $content = $_POST['content'];
+                          if (!empty($content)) {
+                            $sql = "INSERT INTO meropizza.review (content, orderid, userid) VALUES (?, ?, ?)";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param("sii", $content, $orderid, $userid);
+                            $stmt->execute();
+
+                            if ($stmt->affected_rows === 1) {
+                              echo "<script>Swal.fire({
+                              position: 'center',
+                              icon: 'success',
+                              title: 'Thank You',
+                              showConfirmButton: true,
+                              timer: 2500
+                            });
+                            setTimeout(function() {
+                              window.location.reload();
+                          }, 2500);
+                            </script>";
+                            }
+                          }
+                        }
+                      }
                     }
                   }
-                 
                 }
               }
             }
+
             ?>
 
           </ul>
@@ -176,12 +233,12 @@ if (isset($_SESSION['user_id'])) {
       <tr>
         <td>
           <?php
-          if(isset($_SESSION['user_id'])){
-            $btn=false;
-        foreach ($data as $item) {
-                $id = $item['id'];
-                if($products==null && $btn==false){
-                  echo'
+          if (isset($_SESSION['user_id'])) {
+            $btn = false;
+            foreach ($data as $item) {
+              $id = $item['id'];
+              if ($products == null && $btn == false) {
+                echo '
 
                   <div class="total">
                   <form action="order.php" method="POST">
@@ -191,11 +248,11 @@ if (isset($_SESSION['user_id'])) {
                 </div>
 
                   ';
-                  $btn=true;
-                }
-                foreach ($products as $product) {
-                  if ($item['id'] != $product['product_id']  && $btn==false){
-                    echo'
+                $btn = true;
+              }
+              foreach ($products as $product) {
+                if ($item['id'] != $product['product_id']  && $btn == false) {
+                  echo '
 
                     <div class="total">
                     <form action="order.php" method="POST">
@@ -205,11 +262,11 @@ if (isset($_SESSION['user_id'])) {
                   </div>
 
                     ';
-                    $btn=true;
-                  }
+                  $btn = true;
                 }
               }
             }
+          }
           ?>
         </td>
       </tr>

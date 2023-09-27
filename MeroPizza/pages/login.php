@@ -347,7 +347,7 @@ if (!empty($name) && !empty($email) && !empty($address) && !empty($phone) && !em
         icon: 'success',
         title: 'Registered Successfully',
         showConfirmButton: true,
-        timer: 9500
+        timer: 5500
       });</script>";
     } else {
 

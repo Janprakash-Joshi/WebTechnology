@@ -200,7 +200,7 @@ if (isset($_POST['profile'])) {
         <span>"</span>I was so glad to hear Mike’s was opening in Oregon and now it is a wonderful
         reality.<span>"</span><br><br>
       <h1>JP Joshi</h1>
-      <h3>Ceo</h3>
+      <h3>customer</h3>
       </p>
     </div>
     <div class="review">
@@ -209,7 +209,7 @@ if (isset($_POST['profile'])) {
         <span>"</span><br>
 
       <h1>Namraj</h1>
-      <h3>Director</h3>
+      <h3>customer</h3>
       </p>
     </div>
     <div class="review">
@@ -218,7 +218,7 @@ if (isset($_POST['profile'])) {
         tasty,<span>"</span><br>
 
       <h1>Liam</h1>
-      <h3>Manager</h3>
+      <h3>customer</h3>
       </p>
     </div>
     <!-- Add more reviews as needed -->

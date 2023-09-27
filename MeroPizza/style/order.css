@@ -1,60 +1,87 @@
-.order{
+.order {
     padding: 13rem 0 5rem 0;
     background-image: url(/MeroPizza/img/order.png);
-  
+
     background-repeat: no-repeat;
     background-size: contain;
 }
-.detail{
+
+.detail {
     display: flex;
     justify-content: space-around;
 }
 
-.status{
+.status {
     border: 1px solid gray;
 }
-table,th,td{
+
+table,
+th,
+td {
     border: 1px solid gray;
 }
-th{
+
+th {
     font-size: 3vw;
     color: yellow;
     font-weight: bold;
     padding: 1vw 5vw;
 }
-td{
+
+td {
     padding: 1vw;
 
 }
+
 @media (max-width:500px) {
-    td{
+    td {
         padding: 0;
-    
-    } 
+
+    }
 }
 
 .nestedTable {
-border: none;
+    border: none;
 }
 
-.nestedTable tr:first-child{
-  font-size: 2,2vw;
+.nestedTable tr:first-child {
+    font-size: 2, 2vw;
 }
-.cnt{
+
+.cnt {
     margin-bottom: 1.5rem;
 }
-.btn{
+
+.btn {
     padding: 10px;
     border-radius: 15px;
     color: white;
     background: black;
     box-shadow: 1px 1px 1px 1px white;
 }
-.btn:hover{
+
+.btn:hover {
     cursor: pointer;
     transform: scale(.9);
 }
-.total{
+
+.total {
     display: flex;
     justify-content: space-between;
+}
+
+#reviewInp {
+    margin: 10px;
+    text-align: center;
+    padding: 14px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+#reviewSub {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
 }

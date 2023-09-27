@@ -17,7 +17,8 @@ if($lastId<0 || !$lastId){
     $lastId=0;
 }
 $lastId++;
-$id='pizzaorderid'.$lastId;
+$orderDateTime = date('Y-m-d') . "-" . date('H:i:s');
+$id='orderId'.$lastId.$orderDateTime;
 $amt=$_SESSION['totalAmount'];
 
 
@@ -41,5 +42,6 @@ $data =[
     $response = curl_exec($curl);
     curl_close($curl);
     header("Location: https://uat.esewa.com.np/epay/main?" . http_build_query($data));
-exit();
+   exit();
+
 ?>
