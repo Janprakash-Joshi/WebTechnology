@@ -453,8 +453,11 @@ if (isset($_POST['editItems'])) {
 
     $itemId = $id;
     $itemName = $_POST['itemName' . $id];
-
-    $itemPrice = $_POST['itemPrice' . $id];
+    if ($_POST['itemPrice' . $id] >= 1) {
+      $itemPrice = $_POST['itemPrice' . $id];
+  } else {
+      $itemPrice = $item['price'];
+  }
     $sql = "UPDATE MeroPizza.items SET name = ?, price = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssi", $itemName, $itemPrice, $itemId);
