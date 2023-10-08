@@ -113,10 +113,10 @@ if (isset($_POST['profile'])) {
   <!-- location -->
   <div class="map">
 
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47203.79498731991!2d85.31305613595265!3d27.659610589161545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19e8af4a5fe3%3A0x963d00cdf478c6b6!2sNepal%20College%20of%20Information%20Technology!5e0!3m2!1sen!2snp!4v1687881989153!5m2!1sen!2snp"
-      width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <div class="map">
+
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14130.364670305566!2d85.34020015094195!3d27.69902811777157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19869793bff7%3A0xf2f77266b222365a!2sSinamangal%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1696745303389!5m2!1sen!2snp" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
   </div>
   <!-- location -->
 
@@ -159,7 +159,7 @@ if (isset($_POST['profile'])) {
           <h1>Our Location </h1>
         </div>
         <div>
-          <p>Balkumari,Lalitpur</p>
+          <p>Sinamangal,Kathmandu</p>
           <p>Mon - Fri: 08:00 am - 10:00 pm</p>
           <p>Sat - Sun: 10:00 am - 11:00 pm</p>
           <a href="telto:091692861">091692861</a>

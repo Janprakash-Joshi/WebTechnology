@@ -52,10 +52,39 @@
     });
   }
 
+
+  
+const cartItemsElement = document.getElementById("cart-items");
+const searchInput = document.getElementById("search-input");
+
+// Function to filter and display cart items based on the search keyword
+function filterItems() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const cartItemElements = cartItemsElement.getElementsByClassName("cart-item");
+
+  for (let cartItem of cartItemElements) {
+    const itemNameElement = cartItem.querySelector("span");
+    const text = itemNameElement.textContent.toLowerCase();
+
+    if (text.includes(searchTerm)) {
+      cartItem.style.display = "flex";
+    } else {
+      cartItem.style.display = "none";
+    }
+  }
+}
+
+// Add an event listener to the search input to trigger the filtering
+searchInput.addEventListener("input", filterItems);
+
+
+
+
   // Function to increase item quantity
   function increaseQuantity(item) {
     item.quantity++;
     renderCartItems();
+    filterItems()
     totalAmount();
   }
 
@@ -64,6 +93,7 @@
     if (item.quantity > 0) {
       item.quantity--;
       renderCartItems();
+      filterItems()
     }
     totalAmount();
   }
@@ -72,6 +102,7 @@
   function updateQuantity(item, quantity) {
     item.quantity = parseInt(quantity);
     renderCartItems();
+    filterItems()
   }
 
  
@@ -97,7 +128,4 @@
   }
 
 
- 
 
-   // Function to handle Echeckout
-  

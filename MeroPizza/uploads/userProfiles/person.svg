@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+	<title>person-svg</title>
+	<defs>
+		<image  width="16" height="16" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IB2cksfwAAAG9QTFRF////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA62mwiwAAACV0Uk5T/3zo5Hh0riqxcRoAHOHpiqUFhnrqTJrF8J7GagyDoqQZIcj/0DQQqGsAAABiSURBVHicY2AgEjAyMbMg81nZ2Nk5OJEEmLm4uXl4kQT4gAJcTEgC/AKCggJCyIYIi6Aaig5ExcQlJMTFRGF8SSlpGW5uGWkpSQhfVo4bCuRlwQJMCjABRYjNSspwoEKMNwEm4AXqt848KwAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Layer" href="#img1" x="0" y="0"/>
+</svg>

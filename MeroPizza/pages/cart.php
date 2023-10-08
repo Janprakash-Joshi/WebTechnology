@@ -92,6 +92,13 @@ $jsonData = json_encode($data);
       <center>My Cart</center>
     </h1>
   </div>
+  <div>
+ 
+  </div>
+  <form action="cart.php" method="POST" class="search-div">
+  <input type="text" id="search-input" name="search-input" placeholder="Search items">
+  
+</form>
   <form action="cart.php" method="POST">
     <div id="cart-items">
       <!-- Cart items will be dynamically added here -->
@@ -152,7 +159,7 @@ $jsonData = json_encode($data);
           <h1>Our Location </h1>
         </div>
         <div>
-          <p>Balkumari,Lalitpur</p>
+          <p>Sinamangal,Kathmandu</p>
           <p>Mon - Fri: 08:00 am - 10:00 pm</p>
           <p>Sat - Sun: 10:00 am - 11:00 pm</p>
           <a href="telto:091692861">091692861</a>

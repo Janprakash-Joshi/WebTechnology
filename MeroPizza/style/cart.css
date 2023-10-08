@@ -109,3 +109,18 @@
       display: block;
     }
   }
+
+
+  #search-input {
+    padding: 10px 30px 10px 10px;
+    background: url(/meropizza/img/search.svg) no-repeat right center;
+    background-size: 20px 20px;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+    filter: invert(1);
+  }
+  .search-div{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
